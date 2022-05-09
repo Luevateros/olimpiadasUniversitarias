@@ -14,7 +14,7 @@ import com.shrek.olimpiadas.repositorio.RepoCompetidor;
 import com.shrek.olimpiadas.repositorio.RepoDisciplina;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
 import com.shrek.olimpiadas.servicio.SvcCompetidor;
-import com.shrek.olimpiadas.servicio.util.TipoUsuario;
+import com.shrek.olimpiadas.modelo.TipoUsuario;
 
 @Service
 public class SvcCompetidorImpl implements SvcCompetidor{

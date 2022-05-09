@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Inicio - Olimpiadas Universitarias</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<!-- Barra navegación -->
+<div th:insert="navbar :: navbar">  </div>
+
+<!-- Contenido -->
+<div class="container-fluid">
+    <div class="text-center mt-4 mb-2">
+        <h1>Login</h1>
+    </div>
+    <div class="container py-3 bg-warning" >
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <form action="#" style="margin: 0 auto"
+                      th:action="@{/login}"
+                      th:object="${usuario}"  method="post">
+                    <div class="form-group row">
+                        <!-- Correo -->
+                        <div class="col-md-10">
+                            <label for="ingresaCorreo">Correo:</label>
+                            <input type="text" id="ingresaCorreo" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Correo inválido"
+                                   placeholder="ejemplo@correo.com" class="form-control" th:field="*{correo}"
+                                   minlength="8" maxlength="128" required>
+                        </div>
+                    </div>
+                    <div  class="form-group row">
+                        <!-- Contraseña -->
+                        <div class="col-md-10">
+                            <label for="ingresaPassword">Contraseña:</label>
+                            <input type="password" class="form-control"  placeholder="*********"  id="ingresaPassword"  th:field="*{password}"
+                                   minlength="8" maxlength="20" required>
+                        </div>
+                    </div>
+
+                    <!-- Mensaje de error -->
+                    <div class="alert alert-warning" role="alert" th:if="${error}">
+                        <p>Usuario o contraseña incorrectos</p>
+                    </div>
+
+                    <div class="text-center">
+                        <input type="submit" value="Iniciar sesion" class="btn btn-primary m-3">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:insert="footer :: footer">  </div>
+</div>
+</body>
+</html>

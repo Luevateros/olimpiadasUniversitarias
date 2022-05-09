@@ -2,8 +2,6 @@ package com.shrek.olimpiadas.modelo;
 
 import javax.persistence.*;
 
-import com.shrek.olimpiadas.servicio.util.TipoUsuario;
-
 import lombok.Data;
 
 @Data

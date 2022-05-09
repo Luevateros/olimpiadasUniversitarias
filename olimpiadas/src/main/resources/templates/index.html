@@ -9,50 +9,14 @@
         <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     </head>
     <body>
-        
-        <!-- Barra navegación -->
-        <div >
-            <nav class="navbar navbar-expand" style="background-color: #042244">
-                <a class="navbar-brand" th:href="@{/}">
-                    <!-- Logo horizontal (una línea) -->
-                    <img th:src="@{/images/logo_horizontal_inv_1.svg}" style="width:150%; height:150%">
-                    <!-- Logo horizontal (dos líneas) -->
-                    <!-- <img th:src="@{/images/logo_horizontal_inv_2.svg}" style="width:100%; height:100%"> -->
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" >
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Competidor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/menu_entrenador}">Entrenador</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Juez</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Administrador</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
 
-        <!-- Contenido -->
-        <div class="container-fluid">
-            <div class="text-center mt-4 mb-2">
-                <h1>Login</h1>
-            </div>
+    <!-- Barra navegación -->
+    <div th:insert="navbar :: navbar">  </div>
 
-            <!-- Footer -->
-            <div class="text-center">
-                <p>Olimpiadas Universitarias. Derechos reservados &copy; 2022, SHREK </p>
-            </div>
-        </div>
-        
-        
+    <!-- Contenido -->
+    <a class="nav-link" th:href="@{/}">Competidor</a>
+    <!-- Footer -->
+    <div th:insert="footer :: footer">  </div>
+    </div>
     </body>
 </html>

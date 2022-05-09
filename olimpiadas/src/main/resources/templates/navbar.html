@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Inicio - Olimpiadas Universitarias</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand" style="background-color: #042244">
+        <a class="navbar-brand" th:href="@{/}">
+            <!-- Logo horizontal (una línea) -->
+            <img th:src="@{/images/logo_horizontal_inv_1.svg}" style="width:150%; height:150%">
+            <!-- Logo horizontal (dos líneas) -->
+            <!-- <img th:src="@{/images/logo_horizontal_inv_2.svg}" style="width:100%; height:100%"> -->
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" >
+            <ul class="navbar-nav">
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Competidor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/menu_entrenador}">Entrenador</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Juez</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Administrador</a>
+                </li>
+
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Competidor</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="btn btn-outline-light" th:href="@{/login}">Login</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" sec:authentication="name">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="pl-3"  th:href="@{/logout}">Logout</a>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>
