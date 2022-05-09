@@ -17,6 +17,10 @@
 <div class="container-fluid">
     <div class="text-center mt-4 mb-2">
         <h1>Login</h1>
+        <!-- Mensaje de éxito -->
+        <div th:if="${mensaje != null}" class="alert alert-success text-center">
+            [[${mensaje}]]
+        </div>
     </div>
     <div class="container py-3 bg-warning" >
         <div class="row">
