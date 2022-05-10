@@ -78,4 +78,16 @@ public class Calificacion {
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
+
+    @Override
+    public String toString() {
+        return "Calificacion{" +
+                "idcalificacion=" + idcalificacion +
+                ", comentario='" + comentario + '\'' +
+                ", calificacion=" + calificacion +
+                ", competidor=" + competidor +
+                ", juez=" + juez +
+                ", disciplina=" + disciplina +
+                '}';
+    }
 }

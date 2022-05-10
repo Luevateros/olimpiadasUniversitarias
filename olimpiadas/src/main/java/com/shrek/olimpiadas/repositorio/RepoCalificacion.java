@@ -23,12 +23,11 @@ public interface RepoCalificacion extends JpaRepository<Calificacion, Integer>{
 	
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO Calificacion (comentario, calificacion, idcompetidor, idjuez, iddisciplina) "
-				 + "VALUES (:comentario, :calificacion, :idcompetidor, :idjuez, :iddisciplina)", nativeQuery = true)
-	void crearCalificacion(@Param("comentario") String nombre,
+	@Query(value = "INSERT INTO Calificacion (comentario, calificacion, idcompetidor, idjuez) "
+				 + "VALUES (:comentario, :calificacion, :idcompetidor, :idjuez)", nativeQuery = true)
+	void crearCalificacion(@Param("comentario") String comentario,
 						   @Param("calificacion") Float calificacion,
 						   @Param("idcompetidor") String idCompetidor,
-						   @Param("idjuez") Integer idJuez,
-						   @Param("iddisciplina") Integer iddisciplina);
+						   @Param("idjuez") Integer idJuez);
 	
 }

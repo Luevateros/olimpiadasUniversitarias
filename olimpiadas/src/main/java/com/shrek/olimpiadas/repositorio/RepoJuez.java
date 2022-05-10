@@ -1,5 +1,7 @@
 package com.shrek.olimpiadas.repositorio;
 
+import com.shrek.olimpiadas.dto.CompetidorDTO;
+import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.modelo.Juez;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -54,4 +56,7 @@ public interface RepoJuez extends JpaRepository<Juez, Integer> {
 	@Transactional
     @Query(value="DELETE FROM Juez WHERE idjuez = :idjuez", nativeQuery = true)
     void eliminarJuez(@Param("idjuez") Integer idjuez);
+
+	@Query(value = "SELECT * FROM Juez WHERE idusuario = :idusuario", nativeQuery = true)
+	Juez findByidusuario(@Param("idusuario") Integer idusuario);
 }
