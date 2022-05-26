@@ -1,10 +1,8 @@
 package com.shrek.olimpiadas.controlador;
 
-import com.shrek.olimpiadas.dto.CompetidorDTO;
 import com.shrek.olimpiadas.dto.EntrenadorDTO;
 import com.shrek.olimpiadas.dto.UsuarioDTO;
 import com.shrek.olimpiadas.servicio.SvcEntrenador;
-import org.apache.commons.validator.GenericValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

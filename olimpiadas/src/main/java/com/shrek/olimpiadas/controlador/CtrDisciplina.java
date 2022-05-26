@@ -1,9 +1,6 @@
 package com.shrek.olimpiadas.controlador;
 
-import com.shrek.olimpiadas.dto.CompetidorDTO;
 import com.shrek.olimpiadas.dto.DisciplinaDTO;
-import com.shrek.olimpiadas.dto.EntrenadorDTO;
-import com.shrek.olimpiadas.modelo.Disciplina;
 import com.shrek.olimpiadas.servicio.SvcDisciplina;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class CtrDisciplina {

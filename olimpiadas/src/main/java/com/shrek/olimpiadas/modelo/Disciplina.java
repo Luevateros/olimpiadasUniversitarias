@@ -25,11 +25,44 @@ public class Disciplina {
     @Column(name = "descripcion")
     private String descripcion;
 
-    public Integer getIddisciplina() {
-        return iddisciplina;
-    }
+	public Integer getIddisciplina() {
+		return iddisciplina;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setIddisciplina(Integer iddisciplina) {
+		this.iddisciplina = iddisciplina;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(String responsable) {
+		this.responsable = responsable;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+    
 }

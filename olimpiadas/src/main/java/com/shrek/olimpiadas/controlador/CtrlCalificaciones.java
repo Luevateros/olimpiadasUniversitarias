@@ -1,10 +1,6 @@
 package com.shrek.olimpiadas.controlador;
 
 import com.shrek.olimpiadas.dto.CalificacionDto;
-import com.shrek.olimpiadas.dto.CompetidorDTO;
-import com.shrek.olimpiadas.dto.EntrenadorDTO;
-import com.shrek.olimpiadas.dto.UsuarioDTO;
-import com.shrek.olimpiadas.modelo.Calificacion;
 import com.shrek.olimpiadas.modelo.Juez;
 import com.shrek.olimpiadas.modelo.Usuario;
 import com.shrek.olimpiadas.repositorio.RepoJuez;

@@ -1,7 +1,6 @@
 package com.shrek.olimpiadas.servicio.impl;
 
 import com.shrek.olimpiadas.dto.EntrenadorDTO;
-import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.modelo.Disciplina;
 import com.shrek.olimpiadas.modelo.TipoUsuario;
 import com.shrek.olimpiadas.modelo.Usuario;

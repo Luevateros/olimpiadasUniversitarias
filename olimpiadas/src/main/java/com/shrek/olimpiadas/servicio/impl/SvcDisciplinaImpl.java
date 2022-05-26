@@ -5,7 +5,6 @@ import java.util.List;
 import com.shrek.olimpiadas.dto.DisciplinaDTO;
 import com.shrek.olimpiadas.servicio.SvcDisciplina;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.shrek.olimpiadas.modelo.Disciplina;
@@ -58,7 +57,6 @@ public class SvcDisciplinaImpl implements SvcDisciplina {
 
     @Override
     public void eliminarDisciplina(Integer iddisciplina) {
-        Disciplina disciplina = (Disciplina) repoDisciplina.findByIddisciplina(iddisciplina);
         repoDisciplina.eliminarDisciplina(iddisciplina);
     }
 }

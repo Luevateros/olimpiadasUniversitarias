@@ -1,7 +1,5 @@
 package com.shrek.olimpiadas.repositorio;
 
-import com.shrek.olimpiadas.dto.CompetidorDTO;
-import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.modelo.Juez;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

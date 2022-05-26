@@ -2,7 +2,6 @@ package com.shrek.olimpiadas.seguridad;
 
 import com.shrek.olimpiadas.modelo.Usuario;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
-import com.shrek.olimpiadas.seguridad.DetalleUsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
