@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Disciplinas - Olimpiadas Universitarias</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $(".link-eliminar").on("click", function(e) {
+                    e.preventDefault();
+                    nombre = $(this).attr("nombre");
+                    $("#confirmarSi").attr("href", $(this).attr("href"));
+                    $("#confirmarTexto").text("Confirme si desea eliminar la disciplina: " + nombre + ".");
+                    $("#confirmarModal").modal();
+                });
+            });
+        </script>
+        <style>
+            .card-columns {
+              @include media-breakpoint-only(md) {
+                column-count: 3;
+              }
+              @include media-breakpoint-only(xl) {
+                column-count: 3;
+              }
+            }
+        </style>
+</head>
+<body>
+
+<!-- Barra navegación -->
+<div th:insert="navbar :: navbar">  </div>
+
+<div class="container-fluid">
+
+    <div class="row mt-4 mb-2 ml-1 mr-1" style="display: flex; justify-content: space-between;">
+        <h2>Administrar disciplinas</h2>
+        <a class="btn btn-warning" th:href="@{/disciplina/nueva}" style="margin-top : 1%">Registrar disciplina</a>
+    </div>
+
+    <!-- Mensaje de éxito -->
+    <div th:if="${mensaje != null}" class="alert alert-success text-center">
+        [[${mensaje}]]
+    </div>
+
+    <div class="container-fluid" style="margin-top:2%; margin-right:2%" >
+
+        <div class="card-columns">
+            <div class="card border-primary h-100" th:each="disciplina : ${disciplinas}" style="margin-top:1%; border-radius:2%;">
+                <div class="card-img-top">
+                    <img src="https://www.gaceta.unam.mx/wp-content/uploads/2021/07/210726-dep1-des-f1-natacion-unam.jpg" alt="" class="img-fluid" style="border-radius:2%;">
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3 th:text="${disciplina.nombre}"></h3>
+                        <p th:text="${disciplina.descripcion}"></p>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent d-flex justify-content-around" style="position:relative;">
+                    <!-- <a class="btn btn-outline-primary" th:href="@{'/disciplina/editar/' + ${disciplina.iddisciplina}}" style="margin-right:1%;"
+                       title="Actualizar la disciplina">Actualizar</a>!-->
+                    <a class="btn btn-outline-danger"
+                       th:href = "@{'/disciplinas/eliminar/' + ${disciplina.iddisciplina}}"
+                       th:iddisciplina= "${disciplina.iddisciplina}"
+                       title="Eliminar disciplina">Eliminar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: pop-up para confirmar si se elimina al competidor -->
+        <div class="modal fade text-center" id="confirmarModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmación para eliminar</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <span id="confirmarTexto"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-success" href="" id="confirmarSi">Confirmar</a>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- Footer -->
+<div th:insert="footer :: footer">  </div>
+</html>
