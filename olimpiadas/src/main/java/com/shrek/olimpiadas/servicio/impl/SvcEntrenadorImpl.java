@@ -1,21 +1,24 @@
 package com.shrek.olimpiadas.servicio.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.shrek.olimpiadas.dto.EntrenadorDTO;
 import com.shrek.olimpiadas.modelo.Disciplina;
+import com.shrek.olimpiadas.modelo.Entrenador;
 import com.shrek.olimpiadas.modelo.TipoUsuario;
 import com.shrek.olimpiadas.modelo.Usuario;
 import com.shrek.olimpiadas.repositorio.RepoDisciplina;
 import com.shrek.olimpiadas.repositorio.RepoEntrenador;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
 import com.shrek.olimpiadas.servicio.SvcEntrenador;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SvcEntrenadorImpl implements SvcEntrenador {
+	
     @Autowired
     private RepoDisciplina repoDisciplina;
     @Autowired
@@ -25,6 +28,11 @@ public class SvcEntrenadorImpl implements SvcEntrenador {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
+    public Entrenador getEntrenador(Integer id){
+        return repoEntrenador.findByIdusuario(id);
+    }
+    
     @Override
     public List<Disciplina> mostrarDisciplina(){
         return (List<Disciplina>) repoDisciplina.findAll();

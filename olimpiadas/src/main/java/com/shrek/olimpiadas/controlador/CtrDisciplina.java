@@ -34,7 +34,7 @@ public class CtrDisciplina {
         model.addAttribute("mensaje", "Registro completo.");
         String respuesta = svc.agregarDisciplina(disciplina);
         if (respuesta == null){
-            ra.addFlashAttribute("mensaje", "La disciplina se agregó con exitó.");
+            ra.addFlashAttribute("mensaje", "La disciplina se agregó con éxito.");
             return "redirect:/disciplinas";
         }
         ra.addFlashAttribute("disciplina", new DisciplinaDTO());
@@ -69,7 +69,7 @@ public class CtrDisciplina {
             return "redirect:/disciplinas";
         }
         svc.eliminarDisciplina(id);
-        ra.addFlashAttribute("mensaje", "La discilina se eliminó con exitó.");
+        ra.addFlashAttribute("mensaje", "La discilina se eliminó con éxito.");
         return "redirect:/disciplinas";
     }
 

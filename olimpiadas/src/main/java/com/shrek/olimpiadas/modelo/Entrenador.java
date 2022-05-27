@@ -43,4 +43,15 @@ public class Entrenador {
 
         this.competidores.add(competidor);
     }
+
+	public Integer getIdentrenador() {
+		return identrenador;
+	}
+
+	public void setIdentrenador(Integer identrenador) {
+		this.identrenador = identrenador;
+	}
+    
+    
+    
 }

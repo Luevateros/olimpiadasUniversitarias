@@ -1,5 +1,6 @@
 package com.shrek.olimpiadas.controlador;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shrek.olimpiadas.dto.CompetidorDTO;
+import com.shrek.olimpiadas.modelo.Entrenador;
+import com.shrek.olimpiadas.modelo.Usuario;
+import com.shrek.olimpiadas.repositorio.RepoUsuario;
 import com.shrek.olimpiadas.servicio.SvcCompetidor;
+import com.shrek.olimpiadas.servicio.SvcEntrenador;
 
 @Controller
 public class CtrlCompetidor {
@@ -22,10 +27,33 @@ public class CtrlCompetidor {
 	@Autowired
 	private SvcCompetidor svc;
 	
+	@Autowired
+	private SvcEntrenador svcEntrenador;
+	
+	@Autowired
+    private RepoUsuario repoUsuario;
+	
+	private Entrenador getEntrenador(String correo) {
+		if(correo == null)
+			System.out.println("\n\n getEntrenador >>> correo es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
+		Usuario usuario = repoUsuario.findByCorreo(correo);
+		if(usuario == null)
+			System.out.println("\n\n getEntrenador >>> usuario es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
+		Entrenador entrenador = svcEntrenador.getEntrenador(usuario.getIdusuario());
+		if(entrenador == null)
+			System.out.println("\n\n getEntrenador >>> entrenador es nulo >>>>>>>>>>>>>>>>>>>>>>>> " + usuario.getIdusuario() + " \n\n ");
+		return entrenador;
+	}
+	
 	@GetMapping("/menu_entrenador")
-	public String mostrarCompetidores(Model model) {
- 		model.addAttribute("competidores", svc.mostrarCompetidores());
-		return "menu_entrenador";
+	public String mostrarCompetidores(Model model, Principal principal){
+		if(principal == null) {
+			System.out.println("\n\n mostrarCompetidores >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
+			return "redirect:/login";
+		}
+		Entrenador entrenador = getEntrenador(principal.getName());
+		model.addAttribute("competidores", svc.mostrarCompetidores(entrenador.getIdentrenador()));
+        return "menu_entrenador";
 	}
 	
 	@GetMapping("/menu_entrenador/nuevo")
@@ -40,7 +68,7 @@ public class CtrlCompetidor {
 	}
 	
 	@PostMapping("/menu_entrenador/guardar")
-	public String guardarCompetidor(CompetidorDTO competidor, RedirectAttributes ra, Model model) {
+	public String guardarCompetidor(CompetidorDTO competidor, RedirectAttributes ra, Model model, Principal p) {
 		
 		// Al editar no se puede cambiar el número de cuenta.
 		boolean mostrarCuenta = competidor.getCorreoViejo() == null;
@@ -86,9 +114,13 @@ public class CtrlCompetidor {
                 
         // Agregar competidor nuevo
         if(mostrarCuenta) {
-        	respuesta = svc.agregarCompetidor(competidor);
+        	if(p == null) {
+    			System.out.println("\n\n guardarCompetidor >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
+    		}
+        	Entrenador entrenador = getEntrenador(p.getName());
+        	respuesta = svc.agregarCompetidor(competidor, entrenador.getIdentrenador());
     		if(respuesta == null) {
-    			ra.addFlashAttribute("mensaje", "El competidor nuevo se agregó con exitó.");
+    			ra.addFlashAttribute("mensaje", "El competidor nuevo se agregó con éxito.");
     			return "redirect:/menu_entrenador";
     		}
         } 
@@ -96,7 +128,7 @@ public class CtrlCompetidor {
         else {
         	respuesta = svc.actualizarCompetidor(competidor);
     		if(respuesta == null) {
-    			ra.addFlashAttribute("mensaje", "El competidor se actualizó con exitó.");
+    			ra.addFlashAttribute("mensaje", "El competidor se actualizó con éxito.");
     			return "redirect:/menu_entrenador";
     		}
         }
@@ -136,7 +168,7 @@ public class CtrlCompetidor {
 			return "redirect:/menu_entrenador";
 		}
 		svc.eliminarCompetidor(id);
-		ra.addFlashAttribute("mensaje", "El competidor con número de cuenta " + id + " se eliminó con exitó.");
+		ra.addFlashAttribute("mensaje", "El competidor con número de cuenta " + id + " se eliminó con éxito.");
 		return "redirect:/menu_entrenador";
 	}
 	
