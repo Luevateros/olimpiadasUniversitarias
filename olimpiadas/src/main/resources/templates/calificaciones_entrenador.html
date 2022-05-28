@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Inicio - Olimpiadas Universitarias</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<!-- Barra navegación -->
+<div th:insert="navbar :: navbar">  </div>
+
+<!-- Contenido -->
+<div class="container-fluid">
+
+
+    <div class="row mt-4 mb-2 ml-1 mr-1" style="display: flex; justify-content: space-between;">
+        <h2>Calificaciones de mis competidores</h2>
+    </div>
+
+
+    <!-- Lista de competidores -->
+    <div>
+        <table class="table table-bordered table-striped table-hover table-resposive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th style="text-align:center; vertical-align: middle">Nombre</th>
+                <th style="text-align:center; vertical-align: middle">Apellido Paterno</th>
+                <th style="text-align:center; vertical-align: middle">Apellido Materno</th>
+                <th style="text-align:center; vertical-align: middle">Juez</th>
+                <th style="text-align:center; vertical-align: middle">Calificación</th>
+                <th style="text-align:center; vertical-align: middle">Disciplina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="calificacion : ${calificaciones}">
+                <td th:text="${calificacion.nombre}"></td>
+                <td th:text="${calificacion.apellidop}"></td>
+                <td th:text="${calificacion.apellidom}"></td>
+                <td th:text="${calificacion.juez}"></td>
+                <td th:text="${calificacion.calificacion}"></td>
+                <td th:text="${calificacion.disciplina}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Footer -->
+    <div th:insert="footer :: footer">  </div>
+</div>
+</body>
+</html>

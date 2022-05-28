@@ -1,17 +1,24 @@
 package com.shrek.olimpiadas.controlador;
 
 import com.shrek.olimpiadas.dto.CalificacionDto;
+import com.shrek.olimpiadas.modelo.Entrenador;
 import com.shrek.olimpiadas.modelo.Juez;
 import com.shrek.olimpiadas.modelo.Usuario;
+import com.shrek.olimpiadas.repositorio.RepoCalificacionEntrenadorDto;
+import com.shrek.olimpiadas.repositorio.RepoEntrenador;
 import com.shrek.olimpiadas.repositorio.RepoJuez;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
 import com.shrek.olimpiadas.servicio.SvcCalificacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -24,6 +31,30 @@ public class CtrlCalificaciones {
     private RepoUsuario repoUsuario;
     @Autowired
     private RepoJuez repoJuez;
+    @Autowired
+    private RepoEntrenador repoEntrenador;
+    @Autowired
+    private RepoCalificacionEntrenadorDto repoCalificacionEntrenadorDto;
+
+
+    @RequestMapping("/entrenador_calificaciones")
+    public String consultarCalificacionesEntrenador(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+
+        if (name.compareTo("anonymousUser") != 0) {
+            Usuario usuario = repoUsuario.findByCorreo(name);
+            System.out.println(usuario);
+            if (usuario != null) {
+                Entrenador entrenador = repoEntrenador.findByIdusuario(usuario.getIdusuario());
+                if (entrenador != null) {
+                    model.addAttribute("calificaciones", svcCalificacion.traeCalificacionesEntrenador(entrenador.getIdentrenador()));
+                    return "calificaciones_entrenador";
+                }
+            }
+        }
+        return "redirect:/login";
+    }
 
     @GetMapping("/menu_juez")
     public String registroEntrenador(Model model, Principal principal) {

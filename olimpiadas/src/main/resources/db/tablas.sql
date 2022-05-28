@@ -89,3 +89,18 @@ CREATE TABLE IF NOT EXISTS `Calificacion` (
   CONSTRAINT `idcalificacion_competidor` FOREIGN KEY (`idcompetidor`) REFERENCES `competidor` (`idcompetidor`),
   CONSTRAINT `idcalificacion_juez` FOREIGN KEY (`idjuez`) REFERENCES `juez` (`idjuez`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE VIEW IF NOT EXISTS
+	CalificacionEntrenador AS
+    SELECT calificacion.idcalificacion,
+    competidor.nombre as nombre,
+    competidor.apellidop, competidor.apellidom,
+    juez.nombre as juez, calificacion, disciplina.nombre as disciplina
+    FROM calificacion INNER JOIN asesorar
+    ON calificacion.idcompetidor = asesorar.idcompetidor
+    INNER JOIN competidor
+    ON calificacion.idcompetidor = asesorar.idcompetidor
+    INNER JOIN disciplina
+    ON disciplina.iddisciplina = disciplina.iddisciplina
+    INNER JOIN juez
+    ON juez.idjuez = calificacion.idjuez;

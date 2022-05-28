@@ -79,4 +79,8 @@ public interface RepoCompetidor extends JpaRepository<Competidor, String>{
 			"ON competidor.idcompetidor = calificacion.idcompetidor\n" +
 			"WHERE calificacion.idcompetidor IS NULL", nativeQuery = true)
 	List<Competidor> traeCompetidores(@Param("idjuez") Integer idcompetidor);
+
+
+
+
 }
