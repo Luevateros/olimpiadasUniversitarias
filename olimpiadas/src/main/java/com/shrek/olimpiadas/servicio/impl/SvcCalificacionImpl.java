@@ -1,6 +1,7 @@
 package com.shrek.olimpiadas.servicio.impl;
 
 import com.shrek.olimpiadas.dto.CalificacionDto;
+import com.shrek.olimpiadas.modelo.Calificacion;
 import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.repositorio.RepoCalificacion;
 import com.shrek.olimpiadas.repositorio.RepoCompetidor;
@@ -28,6 +29,34 @@ public class SvcCalificacionImpl implements SvcCalificacion {
     }
 
     @Override
+    public List<Calificacion> traeCalificaciones(Integer id) {
+        List<Calificacion> calificaciones = repoCalificacion.traeCalificaciones(id);
+        if(calificaciones != null){
+            return calificaciones;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Calificacion> mostrarCalificacionPerso(String id) {
+        List<Calificacion> calificaciones = repoCalificacion.findByIdcompetidor(id);
+        if(calificaciones != null){
+            return calificaciones;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Calificacion> traeComentarios(Integer id) {
+        List<Calificacion> comentarios = repoCalificacion.traeComentarios(id);
+        if(comentarios != null){
+            return comentarios;
+        }
+        return null;
+    }
+
+
+    @Override
     public String agregarCalificacion(CalificacionDto calificacion) {
         if(calificacion.getComentario() == null){
             return "Favor de agregar un comentario";
@@ -36,4 +65,5 @@ public class SvcCalificacionImpl implements SvcCalificacion {
                 calificacion.getIdcompetidor(), calificacion.getIdjuez());
         return null;
     }
+
 }

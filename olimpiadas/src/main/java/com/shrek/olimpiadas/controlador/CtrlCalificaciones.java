@@ -6,9 +6,11 @@ import com.shrek.olimpiadas.dto.EntrenadorDTO;
 import com.shrek.olimpiadas.dto.UsuarioDTO;
 import com.shrek.olimpiadas.modelo.Calificacion;
 import com.shrek.olimpiadas.modelo.Juez;
+import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.modelo.Usuario;
 import com.shrek.olimpiadas.repositorio.RepoJuez;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
+import com.shrek.olimpiadas.repositorio.RepoCompetidor;
 import com.shrek.olimpiadas.servicio.SvcCalificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,63 @@ public class CtrlCalificaciones {
     @Autowired
     private RepoJuez repoJuez;
 
+    @Autowired
+    private RepoCompetidor repoCompt;
+
+    @GetMapping("/menu_competidor")
+    public String mostrarComentarios(Model model, Principal principal) {
+        if(principal != null){
+            String name = principal.getName();
+            if(name != null){
+                Usuario usuario = repoUsuario.findByCorreo(name);
+                if(usuario != null) {
+                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
+                    if(juez != null) {
+                        model.addAttribute("comentarios", svcCalificacion.traeComentarios(juez.getIdjuez()));
+                        return "menu_competidor";
+                    }
+                }
+            }
+        }
+        return "menu_competidor";
+    }
+
+    @PostMapping("/menu_competidor/calificacion_perso")
+    public String mostrarCalificacionPerso(Model model, Principal principal) {
+        if(principal != null){
+            String name = principal.getName();
+            if(name != null){
+                Usuario usuario = repoUsuario.findByCorreo(name);
+                if(usuario != null) {
+                    Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
+                    if(competidor != null) {
+                        model.addAttribute("calificaciones", svcCalificacion.mostrarCalificacionPerso(competidor.getIdcompetidor()));
+                        return "menu_competidor/calificacion_perso";
+                    }
+                }
+            }
+        }
+        return "menu_competidor/calificacion_perso";
+    }
+
+    @PostMapping("/menu_competidor/posiciones")
+    public String tablaPosiciones(Model model, Principal principal) {
+        if(principal != null){
+            String name = principal.getName();
+            if(name != null){
+                Usuario usuario = repoUsuario.findByCorreo(name);
+                if(usuario != null) {
+                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
+                    if(juez != null) {
+                        model.addAttribute("posiciones", svcCalificacion.traeCalificaciones(juez.getIdjuez()));
+                        return "menu_competidor/posiciones";
+                    }
+                }
+            }
+        }
+        return "menu_competidor/posiciones";
+    }
+
     @GetMapping("/menu_juez")
     public String registroEntrenador(Model model, Principal principal) {
         if(principal != null){
@@ -36,7 +95,7 @@ public class CtrlCalificaciones {
             if(name != null){
                 Usuario usuario = repoUsuario.findByCorreo(name);
                 if(usuario != null){
-                    Juez juez=  repoJuez.findByidusuario(usuario.getIdusuario());
+                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
                     if(juez != null){
                         model.addAttribute("competidores", svcCalificacion.traeCompetidores(juez.getIdjuez()));
                         return "menu_juez";
@@ -55,7 +114,7 @@ public class CtrlCalificaciones {
             if(name != null){
                 Usuario usuario = repoUsuario.findByCorreo(name);
                 if(usuario != null){
-                    Juez juez=  repoJuez.findByidusuario(usuario.getIdusuario());
+                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
                     if(juez != null){
                         CalificacionDto calificacionDto = new CalificacionDto();
                         calificacionDto.setIdcompetidor(id);

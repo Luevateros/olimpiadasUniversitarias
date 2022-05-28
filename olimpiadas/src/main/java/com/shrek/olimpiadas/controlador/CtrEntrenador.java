@@ -35,7 +35,7 @@ public class CtrEntrenador {
         model.addAttribute("mensaje", "Registro completo con exito");
         String respuesta = svc.agregarEntrenador(entrenador);
         if(respuesta == null) {
-            ra.addFlashAttribute("mensaje", "El competidor nuevo se agregó con exitó.");
+            ra.addFlashAttribute("mensaje", "El entrenador nuevo se agregó con exitó.");
 
             ra.addFlashAttribute("usuario", new UsuarioDTO());
             ra.addFlashAttribute("error", false);

@@ -62,7 +62,8 @@ public class CalificacionDto {
         return "CalificacionDto{" +
                 "comentario='" + comentario + '\'' +
                 ", calificacion=" + calificacion +
-                ", idcompetidor=" + idcompetidor +
+                ", id" +
+                "competidor=" + idcompetidor +
                 ", idjuez=" + idjuez +
                 ", iddisciplina=" + iddisciplina +
                 '}';

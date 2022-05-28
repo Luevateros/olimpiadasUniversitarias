@@ -20,6 +20,12 @@ public interface RepoCalificacion extends JpaRepository<Calificacion, Integer>{
 	
 	@Query(value = "SELECT * FROM Calificacion WHERE iddisciplina = :iddisciplina", nativeQuery = true)
 	List<Calificacion> findByiddisciplina(@Param("iddisciplina") Integer iddisciplina);
+
+	@Query(value = "SELECT idjuez, iddisciplina, comentario FROM Calificacion", nativeQuery = true)
+	List<Calificacion> traeComentarios(@Param("idjuez") Integer idjuez);
+
+	@Query(value = "SELECT idjuez, iddisciplina, idcompetidor, calificacion FROM Calificacion ORDER BY calificacion", nativeQuery = true)
+	List<Calificacion> traeCalificaciones(@Param("idjuez") Integer idjuez);
 	
 	@Modifying
 	@Transactional
