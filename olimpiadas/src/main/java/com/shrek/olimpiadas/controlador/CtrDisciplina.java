@@ -84,7 +84,8 @@ public class CtrDisciplina {
                 ima = ima.substring(22);
                 if (!ima.equals("/disciplinas-imagenes/default.jpg")) {
                     Path fileToDeletePath = Paths.get("." + ima);
-                    Files.delete(fileToDeletePath);
+                    if(Files.exists(fileToDeletePath))
+                        Files.delete(fileToDeletePath);
                 }
             }
             respuesta = svc.actualizarDisciplina(disciplina);
@@ -126,7 +127,8 @@ public class CtrDisciplina {
         if (res == null){
             if (!ima.equals("/disciplinas-imagenes/default.jpg")) {
                 Path fileToDeletePath = Paths.get("./" + ima);
-                Files.delete(fileToDeletePath);
+                if(Files.exists(fileToDeletePath))
+                    Files.delete(fileToDeletePath);
             }
         }
         ra.addFlashAttribute("mensaje", m);
