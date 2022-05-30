@@ -1,9 +1,14 @@
 package com.shrek.olimpiadas.servicio.impl;
 
 import com.shrek.olimpiadas.dto.CalificacionDto;
+<<<<<<< HEAD
 import com.shrek.olimpiadas.modelo.Calificacion;
+=======
+import com.shrek.olimpiadas.modelo.CalificacionEntrenadorDto;
+>>>>>>> 19595a8cbdae4b4201477b44fd1e1934cdaa05a3
 import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.repositorio.RepoCalificacion;
+import com.shrek.olimpiadas.repositorio.RepoCalificacionEntrenadorDto;
 import com.shrek.olimpiadas.repositorio.RepoCompetidor;
 import com.shrek.olimpiadas.servicio.SvcCalificacion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +23,26 @@ public class SvcCalificacionImpl implements SvcCalificacion {
     @Autowired
     private RepoCalificacion repoCalificacion;
 
+    @Autowired
+    private RepoCalificacionEntrenadorDto repoCalificacionEntrenadorDto;
+
     @Override
     public List<Competidor> traeCompetidores(Integer id) {
         List<Competidor> competidores = repoCompetidor.traeCompetidores(id);
 
         if(competidores != null){
             return competidores;
+        }
+        return null;
+    }
+
+
+    @Override
+    public List<CalificacionEntrenadorDto> traeCalificacionesEntrenador(Integer id) {
+        List<CalificacionEntrenadorDto> calificaciones = repoCalificacionEntrenadorDto.mostrarCalificaciones(id);
+
+        if(calificaciones != null){
+            return calificaciones;
         }
         return null;
     }

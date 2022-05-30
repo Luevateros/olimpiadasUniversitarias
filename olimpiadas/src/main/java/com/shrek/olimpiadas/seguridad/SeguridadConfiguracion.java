@@ -35,7 +35,7 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter {
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.deleteCookies("JSESSIONID")
 				.invalidateHttpSession(true)
-				.logoutSuccessUrl("/").permitAll();
+				.logoutSuccessUrl("/login").permitAll();
     }
 
 	@Autowired
