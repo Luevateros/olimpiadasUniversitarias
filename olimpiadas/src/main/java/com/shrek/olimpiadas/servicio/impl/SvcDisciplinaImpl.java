@@ -1,14 +1,13 @@
 package com.shrek.olimpiadas.servicio.impl;
 
-import java.util.List;
-
 import com.shrek.olimpiadas.dto.DisciplinaDTO;
+import com.shrek.olimpiadas.modelo.Disciplina;
+import com.shrek.olimpiadas.repositorio.RepoDisciplina;
 import com.shrek.olimpiadas.servicio.SvcDisciplina;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shrek.olimpiadas.modelo.Disciplina;
-import com.shrek.olimpiadas.repositorio.RepoDisciplina;
+import java.util.List;
 
 @Service
 public class SvcDisciplinaImpl implements SvcDisciplina {
@@ -26,6 +25,7 @@ public class SvcDisciplinaImpl implements SvcDisciplina {
         if(disciplina == null)
            return null;
         DisciplinaDTO dto = new DisciplinaDTO();
+        dto.setIddisciplina(disciplina.getIddisciplina());
         dto.setNombre(disciplina.getNombre());
         dto.setResponsable(disciplina.getResponsable());
         dto.setDescripcion(disciplina.getDescripcion());
@@ -56,7 +56,12 @@ public class SvcDisciplinaImpl implements SvcDisciplina {
     }
 
     @Override
-    public void eliminarDisciplina(Integer iddisciplina) {
-        repoDisciplina.eliminarDisciplina(iddisciplina);
+    public String eliminarDisciplina(Integer iddisciplina) {
+        Integer competidores = repoDisciplina.competidores(iddisciplina);
+        if (competidores == 0) {
+            repoDisciplina.eliminarDisciplina(iddisciplina);
+            return null;
+        }
+        return "No se puede eliminar la disciplina, porque hay competidores registrados en ella.";
     }
 }

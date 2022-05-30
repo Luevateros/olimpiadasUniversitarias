@@ -3,6 +3,8 @@ package com.shrek.olimpiadas.dto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.beans.Transient;
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class DisciplinaDTO {
@@ -19,6 +21,9 @@ public class DisciplinaDTO {
         return iddisciplina;
     }
 
+    public void setIddisciplina(Integer iddisciplina) {
+        this.iddisciplina = iddisciplina;
+    }
     /**
      * Método que regresa el nombre de la discilina.
      * @return String - Nombre disciplina
@@ -72,9 +77,13 @@ public class DisciplinaDTO {
      * @return String - Nombre de la imagen de la disciplina
      * */
     public String getImagen() {
-        return imagen;
+        return "/disciplinas-imagenes/" + imagen;
     }
 
+    @Transient
+    public String imagen(){
+        return imagen;
+    }
     /**
      * Método que establece la descripción de la discilina.
      * @param imagen - Nombre de la imagen de la disciplina

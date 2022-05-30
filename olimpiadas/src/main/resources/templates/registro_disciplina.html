@@ -12,14 +12,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script type="text/javascript">
-
-            // Botón para cancelar edición
             $(document).ready(function(){
+                // Botón para cancelar edición
                 $("#buttonCancel").on("click", function(){
                     window.location = "[[@{/disciplinas}]]"
                 });
+
+                $('#file').change(function(){
+                    showImageThumbnail(this);
+                });
             });
+
+            function showImageThumbnail(fileInput){
+                file = fileInput.files[0];
+                reader = new FileReader();
+                reader.onload = function(e){
+                    $('#thumbnail').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+
         </script>
+    <style>
+        .holder {
+          text-align: center;
+          width: auto;
+          display: inline-block;
+        }
+
+        .holder img {
+          width: 50%;
+          height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +56,8 @@
     <div class="container py-3" style ="margin-top:3%;">
         <form action="#" style="margin: 0 auto"
               th:action="@{/disciplinas/guardar}" method="post"
-              th:object="${disciplina}">
+              th:object="${disciplina}"
+              enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col-md-6 mx-auto">
@@ -47,32 +73,18 @@
                     </div>
 
                     <div class="form-group row">
-
                         <div class="col-md-12">
                             <label for="ingresaResponsable">Responsable:</label>
                             <input type="text" class="form-control" th:field="*{responsable}" id="ingresaResponsable"
                                    required minlength="2" maxlength="45">
                         </div>
-
                     </div>
 
                     <div class="form-group row">
-
                         <div class="col-md-12">
-                            <label for="formFile" class="form-label">Seleccionar imagen:</label>
-                            <input class="form-control" th:field="*{imagen}" type="file" id="formFile" accept="image/png, image/gif, image/jpeg">
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-6 mx-auto">
-
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <label for="descripcion">Descripción:</label>
-                            <textarea class="form-control" th:field="*{descripcion}" id="descripcion" rows="6"></textarea>
+                            <label class="form-label">Seleccionar imagen:</label>
+                            <input type="hidden" th:field="*{imagen}">
+                            <input type="file" name = "file" id="file" accept="image/png, image/gif, image/jpeg" class="form-control" >
                         </div>
                     </div>
 
@@ -86,11 +98,29 @@
 
                 </div>
 
+                <div class="col-md-6 mx-auto">
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea class="form-control" th:field="*{descripcion}" id="descripcion" rows="5"></textarea>
+                        </div>
+                        <input type="hidden" th:field="*{iddisciplina}">
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12 holder">
+                            <img id = "thumbnail" alt = "Preview logo"/>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
             <div class="text-center">
-                <input type="submit" value="Aceptar" class="btn btn-primary m-3">
-                <input type="submit" value="Cancelar" class="btn btn-secondary" id="buttonCancel">
+                <input type="submit" value="Aceptar" class="btn btn-primary">
+                <input value="Cancelar" id="buttonCancel" class="btn btn-danger">
             </div>
 
         </form>

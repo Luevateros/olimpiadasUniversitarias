@@ -13,9 +13,8 @@
             $(document).ready(function() {
                 $(".link-eliminar").on("click", function(e) {
                     e.preventDefault();
-                    nombre = $(this).attr("nombre");
                     $("#confirmarSi").attr("href", $(this).attr("href"));
-                    $("#confirmarTexto").text("Confirme si desea eliminar la disciplina: " + nombre + ".");
+                    $("#confirmarTexto").text("Confirme si desea eliminar la disciplina");
                     $("#confirmarModal").modal();
                 });
             });
@@ -35,7 +34,6 @@
 
 <!-- Barra navegación -->
 <div th:insert="navbar :: navbar">  </div>
-
 <div class="container-fluid">
 
     <div class="row mt-4 mb-2 ml-1 mr-1" style="display: flex; justify-content: space-between;">
@@ -53,18 +51,19 @@
         <div class="card-columns">
             <div class="card border-primary h-100" th:each="disciplina : ${disciplinas}" style="margin-top:1%; border-radius:2%;">
                 <div class="card-img-top">
-                    <img src="https://www.gaceta.unam.mx/wp-content/uploads/2021/07/210726-dep1-des-f1-natacion-unam.jpg" alt="" class="img-fluid" style="border-radius:2%;">
+                    <img th:src="@{${disciplina.Imagen}}" alt="" class="img-fluid" style="border-radius:2%; height: 100%; width: 100%; object-fit: contain">
                 </div>
                 <div class="card-body">
                     <div class="card-title">
-                        <h3 th:text="${disciplina.nombre}"></h3>
+                        <h2 th:text="${disciplina.nombre}"></h2>
+                        <h6 class="text-muted" th:text="${disciplina.responsable}"></h6>
                         <p th:text="${disciplina.descripcion}"></p>
                     </div>
                 </div>
                 <div class="card-footer bg-transparent d-flex justify-content-around" style="position:relative;">
-                    <!-- <a class="btn btn-outline-primary" th:href="@{'/disciplina/editar/' + ${disciplina.iddisciplina}}" style="margin-right:1%;"
-                       title="Actualizar la disciplina">Actualizar</a>!-->
-                    <a class="btn btn-outline-danger"
+                    <a class="btn btn-outline-primary" th:href="@{'/disciplina/editar/' + ${disciplina.iddisciplina}}" style="margin-right:1%;"
+                       title="Actualizar la disciplina">Actualizar</a>
+                    <a class="btn btn-outline-danger link-eliminar"
                        th:href = "@{'/disciplinas/eliminar/' + ${disciplina.iddisciplina}}"
                        th:iddisciplina= "${disciplina.iddisciplina}"
                        title="Eliminar disciplina">Eliminar</a>

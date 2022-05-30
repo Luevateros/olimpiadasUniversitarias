@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface RepoDisciplina  extends JpaRepository<Disciplina, Integer>{
 
+	@Query(value = "SELECT * FROM Disciplina", nativeQuery = true)
 	List<Disciplina> findAll();
 
 	@Query(value = "SELECT * FROM Disciplina WHERE iddisciplina = :iddisciplina", nativeQuery = true)
@@ -35,7 +36,7 @@ public interface RepoDisciplina  extends JpaRepository<Disciplina, Integer>{
 	@Query(value = "UPDATE Disciplina SET nombre = :nombre ,"
 			+ "responsable = :responsable ,"
 			+ "imagen = :imagen ,"
-			+ "descripcion = :descripcion ,"
+			+ "descripcion = :descripcion "
 			+ "WHERE iddisciplina = :iddisciplina", nativeQuery = true)
 	Integer actualizarDisciplina(@Param("nombre") String nombre,
 								 @Param("responsable") String responsable,
@@ -43,8 +44,11 @@ public interface RepoDisciplina  extends JpaRepository<Disciplina, Integer>{
 								 @Param("descripcion") String descripcion,
 								 @Param("iddisciplina") Integer iddisciplina);
 
+	@Query(value = "SELECT COUNT(idcompetidor) FROM Competidor  WHERE iddisciplina = :iddisciplina", nativeQuery = true)
+	Integer competidores(@Param("iddisciplina") Integer iddisciplina);
+
 	@Modifying
 	@Transactional
-	@Query(value="DELETE FROM Disciplina WHERE iddisciplina = :iddisciplina", nativeQuery = true)
+	@Query(value = "DELETE FROM Disciplina WHERE iddisciplina = :iddisciplina", nativeQuery = true)
 	void eliminarDisciplina(@Param("iddisciplina") Integer iddisciplina);
 }
