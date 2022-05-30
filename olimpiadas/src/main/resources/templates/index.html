@@ -15,6 +15,9 @@
 
     <!-- Contenido -->
     Eres un entrenador? <a class="nav-link" th:href="@{/registro_entrenador}">Registrate</a>
+
+    <div sec:authorize="isAuthenticated()"> 
+        Authenticated as <span sec:authentication="name"></span></div>
     <!-- Footer -->
     <div th:insert="footer :: footer">  </div>
     </div>

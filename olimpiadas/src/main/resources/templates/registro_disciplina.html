@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>[[${tituloPagina}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+            // Botón para cancelar edición
+            $(document).ready(function(){
+                $("#buttonCancel").on("click", function(){
+                    window.location = "[[@{/disciplinas}]]"
+                });
+            });
+        </script>
+</head>
+
+<body>
+
+<!-- Barra navegación -->
+<div th:insert="navbar :: navbar">  </div>
+<!-- Contenido -->
+    <div class="container-fluid">
+    <div class="container py-3" style ="margin-top:3%;">
+        <form action="#" style="margin: 0 auto"
+              th:action="@{/disciplinas/guardar}" method="post"
+              th:object="${disciplina}">
+
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+                            <label for="ingresaNombre">Nombre:</label>
+                            <input type="text" class="form-control" th:field="*{nombre}" id="ingresaNombre"
+                                   minlength="2" maxlength="45" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+                            <label for="ingresaResponsable">Responsable:</label>
+                            <input type="text" class="form-control" th:field="*{responsable}" id="ingresaResponsable"
+                                   required minlength="2" maxlength="45">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+                            <label for="formFile" class="form-label">Seleccionar imagen:</label>
+                            <input class="form-control" th:field="*{imagen}" type="file" id="formFile" accept="image/png, image/gif, image/jpeg">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 mx-auto">
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea class="form-control" th:field="*{descripcion}" id="descripcion" rows="6"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div th:if="${mensaje != null}" class="alert alert-dark text-center">
+                                [[${mensaje}]]
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="text-center">
+                <input type="submit" value="Aceptar" class="btn btn-primary m-3">
+                <input type="submit" value="Cancelar" class="btn btn-secondary" id="buttonCancel">
+            </div>
+
+        </form>
+    </div>
+
+    </div>
+
+</body>
+<!-- Footer -->
+<div th:insert="footer :: footer">  </div>
+</html>

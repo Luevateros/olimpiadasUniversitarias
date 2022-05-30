@@ -15,6 +15,19 @@ import java.util.List;
 @Repository
 public interface RepoCompetidor extends JpaRepository<Competidor, String>{
 	
+	@Query(value = "SELECT c.* "
+					+ "FROM competidor c "
+					+ "JOIN asesorar a "
+					+ "ON c.idcompetidor = a.idcompetidor "
+					+ "WHERE a.identrenador = :identrenador", nativeQuery = true)
+	List<Competidor> mostrarCompetidores(@Param("identrenador") Integer identrenador);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO Asesorar (idcompetidor, identrenador) "
+				 + "VALUES (:idcompetidor, :identrenador)", nativeQuery = true)
+	void agregarAsesorar(@Param("idcompetidor") String idcompetidor, @Param("identrenador") Integer identrenador);
+	
 	@Query(value = "SELECT * FROM Competidor WHERE idcompetidor = :idcompetidor", nativeQuery = true)
 	Competidor findByIdcompetidor(@Param("idcompetidor") String idcompetidor);
 
@@ -60,7 +73,7 @@ public interface RepoCompetidor extends JpaRepository<Competidor, String>{
     void eliminarCompetidor(@Param("idcompetidor") String idcompetidor);
 
 
-	@Query(value = "SELECT competidor.idcompetidor, nombre, apellidom, apellidop, sexo, nacimiento, escuela, idusuario,iddisciplina  \n" +
+	@Query(value = "SELECT competidor.idcompetidor, nombre, apellidop, apellidom, sexo, nacimiento, escuela, idusuario,iddisciplina  \n" +
 			"FROM (SELECT * FROM competidor WHERE competidor.iddisciplina=(SELECT juez.iddisciplina from juez where juez.idjuez=:idjuez)) as competidor\n" +
 			"LEFT JOIN (SELECT * FROM calificacion WHERE calificacion.idjuez=:idjuez) as calificacion\n" +
 			"ON competidor.idcompetidor = calificacion.idcompetidor\n" +

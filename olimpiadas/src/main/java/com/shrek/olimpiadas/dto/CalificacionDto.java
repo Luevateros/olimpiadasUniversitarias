@@ -1,12 +1,7 @@
 package com.shrek.olimpiadas.dto;
 
-import com.shrek.olimpiadas.modelo.Competidor;
-import com.shrek.olimpiadas.modelo.Disciplina;
-import com.shrek.olimpiadas.modelo.Juez;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -15,6 +15,9 @@ public interface RepoEntrenador extends JpaRepository<Entrenador, Integer>{
 
 	List<Entrenador> findAllByOrderByApellidopAsc();
 	
+	@Query(value = "SELECT * FROM Entrenador WHERE idusuario = :idusuario", nativeQuery = true)
+	Entrenador findByIdusuario(@Param("idusuario") Integer idusuario);
+	
 	@Query(value = "SELECT * FROM Entrenador WHERE identrenador = :identrenador", nativeQuery = true)
 	Entrenador findByIdEntrenador(@Param("identrenador") Integer idEntrenador);
 	

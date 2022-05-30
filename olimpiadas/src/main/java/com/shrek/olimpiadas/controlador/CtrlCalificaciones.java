@@ -1,10 +1,6 @@
 package com.shrek.olimpiadas.controlador;
 
 import com.shrek.olimpiadas.dto.CalificacionDto;
-import com.shrek.olimpiadas.dto.CompetidorDTO;
-import com.shrek.olimpiadas.dto.EntrenadorDTO;
-import com.shrek.olimpiadas.dto.UsuarioDTO;
-import com.shrek.olimpiadas.modelo.Calificacion;
 import com.shrek.olimpiadas.modelo.Juez;
 import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.modelo.Usuario;
@@ -18,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -42,17 +39,15 @@ public class CtrlCalificaciones {
                 Usuario usuario = repoUsuario.findByCorreo(name);
                 if(usuario != null) {
                     Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
-                    if(juez != null) {
-                        model.addAttribute("comentarios", svcCalificacion.traeComentarios(juez.getIdjuez()));
-                        return "menu_competidor";
-                    }
+                    model.addAttribute("comentarios", svcCalificacion.traeComentarios(juez.getIdjuez()));
+                    return "menu_competidor";
                 }
             }
         }
         return "menu_competidor";
     }
 
-    @PostMapping("/menu_competidor/calificacion_perso")
+    @RequestMapping("/menu_competidor/calificacion_perso")
     public String mostrarCalificacionPerso(Model model, Principal principal) {
         if(principal != null){
             String name = principal.getName();
@@ -62,15 +57,15 @@ public class CtrlCalificaciones {
                     Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
                     if(competidor != null) {
                         model.addAttribute("calificaciones", svcCalificacion.mostrarCalificacionPerso(competidor.getIdcompetidor()));
-                        return "menu_competidor/calificacion_perso";
+                        return "calificacion_perso";
                     }
                 }
             }
         }
-        return "menu_competidor/calificacion_perso";
+        return "calificacion_perso";
     }
 
-    @PostMapping("/menu_competidor/posiciones")
+    @RequestMapping("/menu_competidor/posiciones")
     public String tablaPosiciones(Model model, Principal principal) {
         if(principal != null){
             String name = principal.getName();
@@ -80,12 +75,12 @@ public class CtrlCalificaciones {
                     Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
                     if(juez != null) {
                         model.addAttribute("posiciones", svcCalificacion.traeCalificaciones(juez.getIdjuez()));
-                        return "menu_competidor/posiciones";
+                        return "posiciones";
                     }
                 }
             }
         }
-        return "menu_competidor/posiciones";
+        return "posiciones";
     }
 
     @GetMapping("/menu_juez")

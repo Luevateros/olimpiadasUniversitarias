@@ -1,6 +1,5 @@
 package com.shrek.olimpiadas.controlador;
 
-import com.shrek.olimpiadas.dto.CompetidorDTO;
 import com.shrek.olimpiadas.dto.UsuarioDTO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

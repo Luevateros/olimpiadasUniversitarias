@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import com.shrek.olimpiadas.dto.CompetidorDTO;
 import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.modelo.Disciplina;
+import com.shrek.olimpiadas.modelo.TipoUsuario;
 import com.shrek.olimpiadas.modelo.Usuario;
 import com.shrek.olimpiadas.repositorio.RepoCompetidor;
 import com.shrek.olimpiadas.repositorio.RepoDisciplina;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
 import com.shrek.olimpiadas.servicio.SvcCompetidor;
-import com.shrek.olimpiadas.modelo.TipoUsuario;
 
 @Service
 public class SvcCompetidorImpl implements SvcCompetidor{
@@ -32,8 +32,8 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 	private PasswordEncoder passwordEncoder;
 	
 	@Override
-	public List<Competidor> mostrarCompetidores(){
-		return (List<Competidor>) repoCompetidor.findAll();
+	public List<Competidor> mostrarCompetidores(Integer identrenador){
+		return (List<Competidor>) repoCompetidor.mostrarCompetidores(identrenador);
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 	}
 	
 	@Override
-	public String agregarCompetidor(CompetidorDTO competidor){
+	public String agregarCompetidor(CompetidorDTO competidor, Integer identrenador){
 		
 		Usuario usuarioNuevo = (Usuario) repoUsuario.findByCorreo(competidor.getCorreoNuevo());
 		if(usuarioNuevo != null)
@@ -76,6 +76,8 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 				competidor.getEscuela(),
 				usuarioGuardado.getIdusuario(),
 				iddisciplina);
+				
+		repoCompetidor.agregarAsesorar(competidor.getIdcompetidor(), identrenador);
 		
 		return null;
 	}
@@ -91,17 +93,13 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 		
 		// El correo es el mismo pero actualizamos al usuario por si la contraseña cambió.
 		Usuario usuarioAnterior = (Usuario) repoUsuario.findByCorreo(competidor.getCorreoViejo());
-		
-		System.out.println("\n\n\n ANTES DE actualizar \n\n\n");
-		
+				
 		repoUsuario.actualizarUsuario(	
 				competidor.getCorreoNuevo(),
 				passwordEncoder.encode(competidor.getPassword()),
 				TipoUsuario.COMPETIDOR.toString(),
 				usuarioAnterior.getIdusuario());
-		
-		System.out.println("\n\n\n DESPUES DE actualizar \n\n\n");
-		
+				
 		int iddisciplina = 0;
 		try {
 			iddisciplina = Integer.parseInt(competidor.getDisciplina());
@@ -145,7 +143,7 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 	
 	@Override
 	public void eliminarCompetidor(String idcompetidor){
-		Competidor competidor= (Competidor) repoCompetidor.findByIdcompetidor(idcompetidor);
+		Competidor competidor = (Competidor) repoCompetidor.findByIdcompetidor(idcompetidor);
 		repoCompetidor.eliminarCompetidor(idcompetidor);
 		repoUsuario.eliminarUsuario(competidor.getUsuario().getIdusuario());
 		// Aquí falta eliminar también la calificación.

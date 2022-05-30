@@ -1,10 +1,8 @@
 package com.shrek.olimpiadas.controlador;
 
-import com.shrek.olimpiadas.dto.CompetidorDTO;
 import com.shrek.olimpiadas.dto.EntrenadorDTO;
 import com.shrek.olimpiadas.dto.UsuarioDTO;
 import com.shrek.olimpiadas.servicio.SvcEntrenador;
-import org.apache.commons.validator.GenericValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +14,7 @@ import java.security.Principal;
 
 @Controller
 public class CtrEntrenador {
+	
     @Autowired
     private SvcEntrenador svc;
 
@@ -35,8 +34,6 @@ public class CtrEntrenador {
         model.addAttribute("mensaje", "Registro completo con exito");
         String respuesta = svc.agregarEntrenador(entrenador);
         if(respuesta == null) {
-            ra.addFlashAttribute("mensaje", "El entrenador nuevo se agregó con exitó.");
-
             ra.addFlashAttribute("usuario", new UsuarioDTO());
             ra.addFlashAttribute("error", false);
             return "redirect:/login";

@@ -3,8 +3,6 @@ package com.shrek.olimpiadas.dto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioDTO {
