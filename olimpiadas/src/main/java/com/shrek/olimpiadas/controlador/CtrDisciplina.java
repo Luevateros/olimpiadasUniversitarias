@@ -41,64 +41,65 @@ public class CtrDisciplina {
     @PostMapping(value ="/disciplinas/guardar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String agregarDisciplina(DisciplinaDTO disciplina,
                                     @RequestParam(required = false ,name = "file") MultipartFile multipartFile,
-                                    RedirectAttributes ra, Model model) throws IOException {
+                                    RedirectAttributes ra,Model model) throws IOException {
         Integer id = disciplina.getIddisciplina();
-        String respuesta = null;
+        String respuesta = "Esta disciplina ya se encuentra registrada.";
+        model.addAttribute("tituloPagina", "Disciplina");
 
-        //Guardar imagen
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        String ima = disciplina.imagen();
-        if (fileName.length() != 0) {
-            fileName = LocalTime.now() + fileName;
+        if (!svc.registrada(disciplina.getNombre())) {
+            //Guardar imagen
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            String ima = disciplina.imagen();
+            if (fileName.length() != 0) {
+                fileName = LocalTime.now() + fileName;
 
-            disciplina.setImagen(fileName);
-            String uploadDir = "./disciplinas-imagenes/";
-            Path uploadPath = Paths.get(uploadDir);
+                disciplina.setImagen(fileName);
+                String uploadDir = "./disciplinas-imagenes/";
+                Path uploadPath = Paths.get(uploadDir);
+                if (!Files.exists(uploadPath))
+                    Files.createDirectories(uploadPath);
 
-            if(!Files.exists(uploadPath))
-                Files.createDirectories(uploadPath);
-
-            try (InputStream inputStream = multipartFile.getInputStream()) {
-                Path filePath = uploadPath.resolve(fileName);
-                String imaPath = filePath.toFile().getAbsolutePath();
-                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                throw new IOException("No se pudo guardar la imagen " + fileName);
-            }
-        }
-
-        // Guardar nuevo
-        if (id == null) {
-            if(fileName.length() == 0)
-                disciplina.setImagen("default.jpg" );
-
-            respuesta = svc.agregarDisciplina(disciplina);
-            if (respuesta == null) {
-                ra.addFlashAttribute("mensaje", "La disciplina se agregó con éxito.");
-                return "redirect:/disciplinas";
-            }
-            ra.addFlashAttribute("tituloPagina", "Registrar disciplina");
-        } else {
-            // Actualizar
-            if(fileName.length() != 0 && ima.length() != 0){
-                ima = ima.substring(22);
-                if (!ima.equals("/disciplinas-imagenes/default.jpg")) {
-                    Path fileToDeletePath = Paths.get("." + ima);
-                    if(Files.exists(fileToDeletePath))
-                        Files.delete(fileToDeletePath);
+                try (InputStream inputStream = multipartFile.getInputStream()) {
+                    Path filePath = uploadPath.resolve(fileName);
+                    Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    throw new IOException("No se pudo guardar la imagen " + fileName);
                 }
             }
-            respuesta = svc.actualizarDisciplina(disciplina);
-            if (respuesta == null) {
-                ra.addFlashAttribute("mensaje", "La disciplina se actualizó con éxito.");
-                return "redirect:/disciplinas";
+
+            // Guardar nuevo
+            if (id == null) {
+                if (fileName.length() == 0)
+                    disciplina.setImagen("default.jpg");
+
+                respuesta = svc.agregarDisciplina(disciplina);
+                if (respuesta == null) {
+                    ra.addFlashAttribute("mensaje", "La disciplina se agregó con éxito.");
+                    return "redirect:/disciplinas";
+                }
+            } else {
+                // Actualizar
+                if (fileName.length() != 0 && ima.length() != 0) {
+                    ima = ima.substring(22);
+                    if (!ima.equals("/disciplinas-imagenes/default.jpg")) {
+                        Path fileToDeletePath = Paths.get("." + ima);
+                        if (Files.exists(fileToDeletePath))
+                            Files.delete(fileToDeletePath);
+                    }
+                }
+                respuesta = svc.actualizarDisciplina(disciplina);
+                if (respuesta == null) {
+                    ra.addFlashAttribute("mensaje", "La disciplina se actualizó con éxito.");
+                    return "redirect:/disciplinas";
+                }
+                model.addAttribute("tituloPagina", "Editar disciplina");
             }
-            ra.addFlashAttribute("tituloPagina", "Editar disciplina");
         }
+
         // Si hubo un error
-        ra.addFlashAttribute("disciplina", disciplina);
-        ra.addFlashAttribute("mensaje", respuesta);
-        return "redirect:/registro_disciplina";
+        model.addAttribute("disciplina", disciplina);
+        model.addAttribute("mensaje", respuesta);
+        return "registro_disciplina";
     }
 
     @GetMapping("/disciplina/editar/{id}")

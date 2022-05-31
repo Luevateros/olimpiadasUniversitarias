@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SvcDisciplinaImpl implements SvcDisciplina {
@@ -63,5 +64,12 @@ public class SvcDisciplinaImpl implements SvcDisciplina {
             return null;
         }
         return "No se puede eliminar la disciplina, porque hay competidores registrados en ella.";
+    }
+
+    @Override
+    public Boolean registrada(String nueva){
+        List<String> disciplinas = repoDisciplina.getNombres();
+        disciplinas = disciplinas.stream().map(String::toLowerCase).collect(Collectors.toList());
+        return disciplinas.contains(nueva.toLowerCase());
     }
 }
