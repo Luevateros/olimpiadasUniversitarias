@@ -11,8 +11,9 @@ import java.nio.file.Paths;
 public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        Path imaDir = Paths.get("./disciplina-imagenes");
-        String imaPath = imaDir.toFile().getAbsolutePath();
-        registry.addResourceHandler("/disciplinas-imagenes/**").addResourceLocations("file:/home/kvsp/Desktop/CComputacion/6tosemestre/Ing Software/proyectoV2/olimpiadas/disciplinas-imagenes/");
+        String uploadDir = "./disciplinas-imagenes/";
+        Path uploadPath = Paths.get(uploadDir);
+        String imaPath = uploadPath.toFile().getAbsolutePath();
+        registry.addResourceHandler("/disciplinas-imagenes/**").addResourceLocations("file:" + imaPath + "/");
     }
 }

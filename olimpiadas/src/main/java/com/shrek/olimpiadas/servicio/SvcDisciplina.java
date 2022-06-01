@@ -11,4 +11,5 @@ public interface SvcDisciplina {
     String agregarDisciplina(DisciplinaDTO disciplina);
     String actualizarDisciplina(DisciplinaDTO disciplina);
     String eliminarDisciplina(Integer iddisciplina);
+    Boolean registrada(String nueva);
 }
