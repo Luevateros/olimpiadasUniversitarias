@@ -27,10 +27,6 @@ public class Calificacion {
     @JoinColumn(name = "idjuez")
     private Juez juez;
 
-    @ManyToOne()
-    @JoinColumn(name = "iddisciplina")
-    private Disciplina disciplina;
-
     public Integer getIdcalificacion() {
         return idcalificacion;
     }
@@ -71,14 +67,6 @@ public class Calificacion {
         this.juez = juez;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
-
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
-
     @Override
     public String toString() {
         return "Calificacion{" +
@@ -87,7 +75,6 @@ public class Calificacion {
                 ", calificacion=" + calificacion +
                 ", competidor=" + competidor +
                 ", juez=" + juez +
-                ", disciplina=" + disciplina +
                 '}';
     }
 }

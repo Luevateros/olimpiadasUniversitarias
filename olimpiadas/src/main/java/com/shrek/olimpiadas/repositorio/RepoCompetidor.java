@@ -78,14 +78,8 @@ public interface RepoCompetidor extends JpaRepository<Competidor, String>{
 			"LEFT JOIN (SELECT * FROM calificacion WHERE calificacion.idjuez=:idjuez) as calificacion\n" +
 			"ON competidor.idcompetidor = calificacion.idcompetidor\n" +
 			"WHERE calificacion.idcompetidor IS NULL", nativeQuery = true)
-	List<Competidor> traeCompetidores(@Param("idjuez") Integer idcompetidor);
-
-<<<<<<< HEAD
+	List<Competidor> traeCompetidores(@Param("idjuez") Integer idjuez);
 	@Query(value = "SELECT * FROM Competidor WHERE idusuario = :idusuario", nativeQuery = true)
 	Competidor findByidusuario(@Param("idusuario") Integer idusuario);
-=======
 
-
-
->>>>>>> 19595a8cbdae4b4201477b44fd1e1934cdaa05a3
 }

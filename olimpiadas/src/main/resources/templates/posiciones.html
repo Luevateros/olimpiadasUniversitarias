@@ -29,16 +29,18 @@
             <table class="table table-bordered table-striped table-hover table-resposive-xl">
                 <thead class="thead-dark">
                 <tr>
-                    <th style="text-align:center; vertical-align: middle">Juez</th>
-                    <th style="text-align:center; vertical-align: middle">Disciplina</th>
-                    <th style="text-align:center; vertical-align: middle">Comentario</th>
+                    <th style="text-align:center; vertical-align: middle">Competidor</th>
+                    <th style="text-align:center; vertical-align: middle">Escuela</th>
+                    <th style="text-align:center; vertical-align: middle">Sexo</th>
+                    <th style="text-align:center; vertical-align: middle">Calificacion</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="calificacion : ${calificacion}">
-                    <td th:text="${calificacion.idjuez}"></td>
-                    <td th:text="${calificacion.iddisciplina}"></td>
-                    <td th:text="${calificacion.comentario}"></td>
+                <tr th:each="posicion : ${posiciones}">
+                    <td th:text="${calificacion.competidor.nombre} + ' ' + ${calificacion.competidor.apellidop} + ' ' + ${calificacion.competidor.apellidom}"></td>
+                    <td th:text="${calificacion.competidor.escuela}"></td>
+                    <td th:text="${calificacion.competidor.sexo}"></td>
+                    <td th:text="${calificacion.calificacion}"></td>
                 </tr>
                 </tbody>
             </table>

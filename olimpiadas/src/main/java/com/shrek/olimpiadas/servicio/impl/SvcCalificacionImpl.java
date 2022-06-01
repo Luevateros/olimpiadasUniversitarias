@@ -1,11 +1,9 @@
 package com.shrek.olimpiadas.servicio.impl;
 
 import com.shrek.olimpiadas.dto.CalificacionDto;
-<<<<<<< HEAD
 import com.shrek.olimpiadas.modelo.Calificacion;
-=======
 import com.shrek.olimpiadas.modelo.CalificacionEntrenadorDto;
->>>>>>> 19595a8cbdae4b4201477b44fd1e1934cdaa05a3
+import com.shrek.olimpiadas.modelo.CalificacionCompetidorDto;
 import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.repositorio.RepoCalificacion;
 import com.shrek.olimpiadas.repositorio.RepoCalificacionEntrenadorDto;
@@ -22,14 +20,12 @@ public class SvcCalificacionImpl implements SvcCalificacion {
     private RepoCompetidor repoCompetidor;
     @Autowired
     private RepoCalificacion repoCalificacion;
-
     @Autowired
     private RepoCalificacionEntrenadorDto repoCalificacionEntrenadorDto;
 
     @Override
     public List<Competidor> traeCompetidores(Integer id) {
         List<Competidor> competidores = repoCompetidor.traeCompetidores(id);
-
         if(competidores != null){
             return competidores;
         }
@@ -48,10 +44,10 @@ public class SvcCalificacionImpl implements SvcCalificacion {
     }
 
     @Override
-    public List<Calificacion> traeCalificaciones(Integer id) {
-        List<Calificacion> calificaciones = repoCalificacion.traeCalificaciones(id);
-        if(calificaciones != null){
-            return calificaciones;
+    public List<CalificacionCompetidorDto> traeCalificaciones(Integer id, Integer sexo) {
+        List<CalificacionCompetidorDto> posiciones = repoCalificacion.traeCalificaciones(id,sexo);
+        if(posiciones != null){
+            return posiciones;
         }
         return null;
     }
@@ -66,8 +62,8 @@ public class SvcCalificacionImpl implements SvcCalificacion {
     }
 
     @Override
-    public List<Calificacion> traeComentarios(Integer id) {
-        List<Calificacion> comentarios = repoCalificacion.traeComentarios(id);
+    public List<Calificacion> traeComentarios(String id) {
+        List<Calificacion> comentarios = repoCalificacion.findByIdcompetidor(id);
         if(comentarios != null){
             return comentarios;
         }

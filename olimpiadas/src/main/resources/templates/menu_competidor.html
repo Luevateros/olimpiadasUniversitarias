@@ -30,14 +30,12 @@
                 <thead class="thead-dark">
                 <tr>
                     <th style="text-align:center; vertical-align: middle">Juez</th>
-                    <th style="text-align:center; vertical-align: middle">Disciplina</th>
                     <th style="text-align:center; vertical-align: middle">Comentario</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="calificacion : ${calificacion}">
-                    <td th:text="${calificacion.idjuez}"></td>
-                    <td th:text="${calificacion.iddisciplina}"></td>
+                <tr th:each="calificacion : ${comentarios}">
+                    <td th:text="${calificacion.juez.nombre} + ' ' + ${calificacion.juez.apellidop} + ' ' + ${calificacion.juez.apellidom}"></td>
                     <td th:text="${calificacion.comentario}"></td>
                 </tr>
                 </tbody>

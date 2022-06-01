@@ -123,6 +123,13 @@ public class Competidor {
         }
         return this.disciplina.getNombre();
     }
+
+	public Integer getIddisciplina() {
+		if (this.disciplina == null) {
+			return null;
+		}
+		return this.disciplina.getIddisciplina();
+	}
     
     public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;

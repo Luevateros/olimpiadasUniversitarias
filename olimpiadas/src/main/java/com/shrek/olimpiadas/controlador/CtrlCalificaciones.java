@@ -38,6 +38,9 @@ public class CtrlCalificaciones {
     @Autowired
     private RepoCalificacionEntrenadorDto repoCalificacionEntrenadorDto;
 
+    @Autowired
+    private RepoCompetidor repoCompt;
+
 
     @RequestMapping("/entrenador_calificaciones")
     public String consultarCalificacionesEntrenador(Model model) {
@@ -58,58 +61,42 @@ public class CtrlCalificaciones {
         return "redirect:/login";
     }
 
-    @Autowired
-    private RepoCompetidor repoCompt;
-
     @GetMapping("/menu_competidor")
     public String mostrarComentarios(Model model, Principal principal) {
-        if(principal != null){
-            String name = principal.getName();
-            if(name != null){
-                Usuario usuario = repoUsuario.findByCorreo(name);
-                if(usuario != null) {
-                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
-                    model.addAttribute("comentarios", svcCalificacion.traeComentarios(juez.getIdjuez()));
-                    return "menu_competidor";
-                }
-            }
+        if(principal == null) {
+            System.out.println("\n\n mostrarComentarios >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
+            return "redirect:/login";
         }
+        String name = principal.getName();
+        Usuario usuario = repoUsuario.findByCorreo(name);
+        Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
+        model.addAttribute("comentarios", svcCalificacion.traeComentarios(competidor.getIdcompetidor()));
         return "menu_competidor";
     }
 
     @RequestMapping("/menu_competidor/calificacion_perso")
     public String mostrarCalificacionPerso(Model model, Principal principal) {
-        if(principal != null){
-            String name = principal.getName();
-            if(name != null){
-                Usuario usuario = repoUsuario.findByCorreo(name);
-                if(usuario != null) {
-                    Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
-                    if(competidor != null) {
-                        model.addAttribute("calificaciones", svcCalificacion.mostrarCalificacionPerso(competidor.getIdcompetidor()));
-                        return "calificacion_perso";
-                    }
-                }
-            }
+        if(principal == null) {
+            System.out.println("\n\n mostrarCalificacionesPerso >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
+            return "redirect:/login";
         }
+        String name = principal.getName();
+        Usuario usuario = repoUsuario.findByCorreo(name);
+        Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
+        model.addAttribute("calificaciones", svcCalificacion.mostrarCalificacionPerso(competidor.getIdcompetidor()));
         return "calificacion_perso";
     }
 
     @RequestMapping("/menu_competidor/posiciones")
     public String tablaPosiciones(Model model, Principal principal) {
-        if(principal != null){
-            String name = principal.getName();
-            if(name != null){
-                Usuario usuario = repoUsuario.findByCorreo(name);
-                if(usuario != null) {
-                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
-                    if(juez != null) {
-                        model.addAttribute("posiciones", svcCalificacion.traeCalificaciones(juez.getIdjuez()));
-                        return "posiciones";
-                    }
-                }
-            }
+        if(principal == null) {
+            System.out.println("\n\n tablaPosiciones >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
+            return "redirect:/login";
         }
+        String name = principal.getName();
+        Usuario usuario = repoUsuario.findByCorreo(name);
+        Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
+        model.addAttribute("posiciones", svcCalificacion.traeCalificaciones(competidor.getIddisciplina(),competidor.getSexo()));
         return "posiciones";
     }
 
@@ -132,7 +119,7 @@ public class CtrlCalificaciones {
     }
 
     @GetMapping("/menu_juez/calificar/{id}")
-    public String eliminarCompetidor(@PathVariable(name = "id") String id, Model model, RedirectAttributes ra, Principal principal) {
+    public String eliminarCompetidor(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes ra, Principal principal) {
 
         if(principal != null){
             String name = principal.getName();

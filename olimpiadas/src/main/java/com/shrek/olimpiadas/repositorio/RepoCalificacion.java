@@ -1,6 +1,7 @@
 package com.shrek.olimpiadas.repositorio;
 
 import com.shrek.olimpiadas.modelo.Calificacion;
+import com.shrek.olimpiadas.modelo.CalificacionCompetidorDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,11 +22,16 @@ public interface RepoCalificacion extends JpaRepository<Calificacion, Integer>{
 	@Query(value = "SELECT * FROM Calificacion WHERE iddisciplina = :iddisciplina", nativeQuery = true)
 	List<Calificacion> findByiddisciplina(@Param("iddisciplina") Integer iddisciplina);
 
-	@Query(value = "SELECT idjuez, iddisciplina, comentario FROM Calificacion", nativeQuery = true)
-	List<Calificacion> traeComentarios(@Param("idjuez") Integer idjuez);
-
-	@Query(value = "SELECT idjuez, iddisciplina, idcompetidor, calificacion FROM Calificacion ORDER BY calificacion", nativeQuery = true)
-	List<Calificacion> traeCalificaciones(@Param("idjuez") Integer idjuez);
+	@Query(value = "SELECT c.nombre, c.apellidop, c.apellidom, c.escuela, c.sexo, k.calificacion "
+			+ "FROM competidor c "
+			+ "JOIN calificacion k "
+			+ "ON c.idcompetidor = k.idcompetidor "
+			+ "WHERE iddisciplina = :iddisciplina AND sexo = :sexo "
+			+ "ORDER BY k.calificacion Desc "
+			+ " ", nativeQuery = true)
+	List<CalificacionCompetidorDto> traeCalificaciones(
+			@Param("iddisciplina") Integer iddisciplina,
+			@Param("sexo") Integer sexo);
 	
 	@Modifying
 	@Transactional
@@ -33,7 +39,7 @@ public interface RepoCalificacion extends JpaRepository<Calificacion, Integer>{
 				 + "VALUES (:comentario, :calificacion, :idcompetidor, :idjuez)", nativeQuery = true)
 	void crearCalificacion(@Param("comentario") String comentario,
 						   @Param("calificacion") Float calificacion,
-						   @Param("idcompetidor") String idCompetidor,
+						   @Param("idcompetidor") Integer idCompetidor,
 						   @Param("idjuez") Integer idJuez);
 	
 }
