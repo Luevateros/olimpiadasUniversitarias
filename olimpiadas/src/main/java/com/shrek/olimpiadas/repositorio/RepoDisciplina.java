@@ -15,6 +15,9 @@ public interface RepoDisciplina  extends JpaRepository<Disciplina, Integer>{
 	@Query(value = "SELECT * FROM Disciplina", nativeQuery = true)
 	List<Disciplina> findAll();
 
+	@Query(value = "SELECT nombre FROM Disciplina", nativeQuery = true)
+	List<String> getNombres();
+
 	@Query(value = "SELECT * FROM Disciplina WHERE iddisciplina = :iddisciplina", nativeQuery = true)
 	Disciplina findByIddisciplina(@Param("iddisciplina") Integer iddisciplina);
 
