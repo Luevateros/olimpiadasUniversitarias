@@ -8,25 +8,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface RepoEntrenador extends JpaRepository<Entrenador, Integer>{
-
-	List<Entrenador> findAllByOrderByApellidopAsc();
 	
 	@Query(value = "SELECT * FROM Entrenador WHERE idusuario = :idusuario", nativeQuery = true)
 	Entrenador findByIdusuario(@Param("idusuario") Integer idusuario);
 	
 	@Query(value = "SELECT * FROM Entrenador WHERE identrenador = :identrenador", nativeQuery = true)
 	Entrenador findByIdEntrenador(@Param("identrenador") Integer idEntrenador);
-	
-	@Query(value = "SELECT * FROM Entrenador WHERE nombre = :nombre "
-									  + "AND apellidop = :apellidop "
-									  + "AND apellidom = :apellidom", nativeQuery = true)
-	Entrenador findByNombreCompleto(@Param("nombre") String nombre,
-							  @Param("apellidop") String apellidop,
-							  @Param("apellidom") String apellidom);
 	
 	@Modifying
 	@Transactional

@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 public class CalificacionDto {
     private String comentario;
     private float calificacion;
-    private Integer idcompetidor;
+    private String idcompetidor;
     private Integer idjuez;
+    private Integer iddisciplina;
 
     public String getComentario() {
         return comentario;
@@ -27,11 +28,11 @@ public class CalificacionDto {
         this.calificacion = calificacion;
     }
 
-    public Integer getIdcompetidor() {
+    public String getIdcompetidor() {
         return idcompetidor;
     }
 
-    public void setIdcompetidor(Integer idcompetidor) {
+    public void setIdcompetidor(String idcompetidor) {
         this.idcompetidor = idcompetidor;
     }
 
@@ -43,14 +44,22 @@ public class CalificacionDto {
         this.idjuez = idjuez;
     }
 
+    public Integer getIddisciplina() {
+        return iddisciplina;
+    }
+
+    public void setIddisciplina(Integer iddisciplina) {
+        this.iddisciplina = iddisciplina;
+    }
+
     @Override
     public String toString() {
         return "CalificacionDto{" +
                 "comentario='" + comentario + '\'' +
                 ", calificacion=" + calificacion +
-                ", id" +
-                "competidor=" + idcompetidor +
+                ", idcompetidor=" + idcompetidor +
                 ", idjuez=" + idjuez +
+                ", iddisciplina=" + iddisciplina +
                 '}';
     }
 }

@@ -62,8 +62,11 @@ public class Juez {
         this.apellidom = apellidom;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    public String getDisciplina() {
+    	if (this.disciplina == null) {
+            return null;
+        }
+        return this.disciplina.getNombre();
     }
 
     public void setDisciplina(Disciplina disciplina) {

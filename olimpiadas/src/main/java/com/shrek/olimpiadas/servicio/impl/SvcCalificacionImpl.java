@@ -1,18 +1,19 @@
 package com.shrek.olimpiadas.servicio.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.shrek.olimpiadas.dto.CalificacionDto;
 import com.shrek.olimpiadas.modelo.Calificacion;
-import com.shrek.olimpiadas.modelo.CalificacionEntrenadorDto;
 import com.shrek.olimpiadas.modelo.CalificacionCompetidorDto;
+import com.shrek.olimpiadas.modelo.CalificacionEntrenadorDto;
 import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.repositorio.RepoCalificacion;
 import com.shrek.olimpiadas.repositorio.RepoCalificacionEntrenadorDto;
 import com.shrek.olimpiadas.repositorio.RepoCompetidor;
 import com.shrek.olimpiadas.servicio.SvcCalificacion;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SvcCalificacionImpl implements SvcCalificacion {
@@ -26,6 +27,7 @@ public class SvcCalificacionImpl implements SvcCalificacion {
     @Override
     public List<Competidor> traeCompetidores(Integer id) {
         List<Competidor> competidores = repoCompetidor.traeCompetidores(id);
+
         if(competidores != null){
             return competidores;
         }
@@ -70,15 +72,17 @@ public class SvcCalificacionImpl implements SvcCalificacion {
         return null;
     }
 
-
     @Override
     public String agregarCalificacion(CalificacionDto calificacion) {
         if(calificacion.getComentario() == null){
             return "Favor de agregar un comentario";
         }
-        repoCalificacion.crearCalificacion(calificacion.getComentario(), calificacion.getCalificacion(),
-                calificacion.getIdcompetidor(), calificacion.getIdjuez());
+        repoCalificacion.crearCalificacion(
+        								calificacion.getComentario(), 
+        								calificacion.getCalificacion(),
+        								calificacion.getIdcompetidor(), 
+        								calificacion.getIdjuez(), 
+        								calificacion.getIddisciplina());
         return null;
     }
-
 }

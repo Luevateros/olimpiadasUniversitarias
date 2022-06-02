@@ -8,47 +8,39 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface RepoJuez extends JpaRepository<Juez, Integer> {
-
-	List<Juez> findAllByOrderByApellidopAsc();
 	
 	@Query(value = "SELECT * FROM Juez WHERE idjuez = :idjuez", nativeQuery = true)
-	Juez findByidjuez(@Param("idjuez") Integer idjuez);
-	
-	@Query(value = "SELECT * FROM Juez WHERE nombre = :nombre "
-									  + "AND apellidop = :apellidop "
-									  + "AND apellidom = :apellidom", nativeQuery = true)
-	Juez findByNombreCompleto(@Param("nombre") String nombre,
-							  @Param("apellidop") String apellidop,
-							  @Param("apellidom") String apellidom);
+	Juez findByIdjuez(@Param("idjuez") Integer idjuez);
 	
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO Juez (nombre, apellidop, apellidom, iddisciplina, idusuario) "
-				 + "VALUES (:nombre, :apellidop, :apellidom, :iddisciplina, :idusuario)", nativeQuery = true)
-	void crearJuez(@Param("nombre") String nombre,
+	@Query(value = "INSERT INTO Juez (nombre, apellidop, apellidom, idusuario, iddisciplina) "
+				 + "VALUES (:nombre, :apellidop, :apellidom, :idusuario, :iddisciplina)", nativeQuery = true)
+	void agregarJuez(@Param("nombre") String nombre,
 				   @Param("apellidop") String apellidop,
-				   @Param("apellidom") String apellidom, 
-				   @Param("iddisciplina") Integer iddisciplina,
-				   @Param("idusuario") Integer idusuario);
+				   @Param("apellidom") String apellidom,
+				   @Param("idusuario") Integer idusuario, 
+				   @Param("iddisciplina") Integer iddisciplina);
 	
 	@Modifying
 	@Transactional
-	@Query(value = "UPDATE Juez SET nombre = :nombre "
-								 + "apellidop = :apellidop "
-								 + "apellidom = :apellidom "
-								 + "iddisciplina = :iddisciplina "
-								 + "idusuario = :idusuario "
-								 + "WHERE idjuez = :idjuez", nativeQuery = true)
-	Integer actualizarJuez(@Param("nombre") String nombre,
+	@Query(value = "UPDATE Juez SET idjuez = :idjuez,"
+								+ "nombre = :nombre, "
+								+ "apellidop = :apellidop, "
+								+ "apellidom = :apellidom, "
+								+ "iddisciplina = :iddisciplina, "
+								+ "idusuario = :idusuario "
+								+ "WHERE idjuez = :idjuez", nativeQuery = true)
+	Integer actualizarJuez(
+						@Param("idjuez") Integer idjuez,
+						@Param("nombre") String nombre,
 						@Param("apellidop") String apellidop,
-						@Param("apellidom") String apellidom, 
-						@Param("iddisciplina") Integer iddisciplina,
-						@Param("idusuario") Integer idusuario,
-						@Param("idjuez") Integer idjuez);
+						@Param("apellidom") String apellidom,
+						@Param("idusuario") Integer idusuario, 
+						@Param("iddisciplina") Integer iddisciplina);
 	
 	@Modifying
 	@Transactional
@@ -56,5 +48,5 @@ public interface RepoJuez extends JpaRepository<Juez, Integer> {
     void eliminarJuez(@Param("idjuez") Integer idjuez);
 
 	@Query(value = "SELECT * FROM Juez WHERE idusuario = :idusuario", nativeQuery = true)
-	Juez findByidusuario(@Param("idusuario") Integer idusuario);
+	Juez findByIdusuario(@Param("idusuario") Integer idusuario);
 }

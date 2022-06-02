@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     
-<head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Inicio - Olimpiadas Universitarias</title>
+        <title>Menú Administrador - Olimpiadas Universitarias</title>
         <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
         <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
         <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
         <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     </head>
-
+    
     <body>
 
+        <!-- Barra navegación -->
         <nav th:fragment="navbar" class="navbar navbar-expand" style="background-color: #042244">
             
             <!-- Logo -->
             <a class="navbar-brand" th:href="@{/}">
                 <!-- Logo horizontal (una línea) -->
-                <img th:src="@{/images/logo_horizontal_inv_1.svg}" id="img-nav">
+                <img th:src="@{/images/logo_horizontal_inv_1.svg}" style="width:150%; height:150%">
                 <!-- Logo horizontal (dos líneas) -->
                 <!-- <img th:src="@{/images/logo_horizontal_inv_2.svg}" style="width:100%; height:100%"> -->
             </a>
@@ -34,28 +34,7 @@
             <div class="collapse navbar-collapse justify-content-end" >
                 
                 <ul class="navbar-nav">
-
-                    <!-- Muestra el rol del usuario-->
-                    <!-- <li class="nav-item">
-                        <span sec:authentication="principal.authorities">[ADMIN, ENTRENADOR, JUEZ, COMPETIDOR]</span>
-                    </li> -->
-
-                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                        <a class="nav-link" th:href="@{/disciplinas}">Disciplinas</a>
-                    </li>
-
-                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                        <a class="nav-link" th:href="@{/jueces}">Jueces</a>
-                    </li>
-
-                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                        <a class="nav-link" th:href="@{/competidores}">Competidores</a>
-                    </li>
-
-                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                        <a class="nav-link" th:href="@{/entrenadores}">Entrenadores</a>
-                    </li>
-
+                    
                     <!-- Log in / Log out -->
                     <li sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="btn btn-outline-light" th:href="@{/login}">Login</a>
@@ -68,12 +47,47 @@
                             <a class="pl-3"  th:href="@{/logout}">Logout</a>
                         </div>
                     </li>
-
                 </ul>
 
             </div>
-
+            
         </nav>
 
+        <!-- Contenido -->
+        <div class="container-fluid">
+            <h1 class="titulo-centro">Administrar</h1>
+            
+            <div id="central">
+                <div class="row no-gutters">
+                    <a th:href="@{/disciplinas}" class="col-sm texto-centro opcion_admin">
+                        <h3>Disciplinas</h3>
+                        <img th:src="@{/images/icono_disciplinas.svg}">
+                        <img th:src="@{/images/icono_disciplinas_oro.svg}" class="img-arriba">
+                    </a>
+                    <a th:href="@{/jueces}" class="col-sm texto-centro opcion_admin">
+                        <h3>Jueces</h3>
+                        <img th:src="@{/images/icono_jueces.svg}">
+                        <img th:src="@{/images/icono_jueces_oro.svg}" class="img-arriba">
+                    </a>
+                </div>
+                <div class="row no-gutters">
+                    <a th:href="@{/competidores}" class="col-sm texto-centro opcion_admin">
+                        <h3>Competidores</h3>
+                        <img th:src="@{/images/icono_competidores.svg}">
+                        <img th:src="@{/images/icono_competidores_oro.svg}" class="img-arriba">
+                    </a>
+                    <a th:href="@{/entrenadores}" class="col-sm texto-centro opcion_admin">
+                        <h3>Entrenadores</h3>
+                        <img th:src="@{/images/icono_entrenadores.svg}">
+                        <img th:src="@{/images/icono_entrenadores_oro.svg}" class="img-arriba">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div th:insert="footer :: footer">  </div>
+        </div>
+
     </body>
+
 </html>

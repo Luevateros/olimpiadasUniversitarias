@@ -7,6 +7,31 @@ import javax.persistence.*;
 @Data
 @Table(name = "Calificacion")
 @Entity
+@NamedNativeQuery(
+	    name = "traeCalificaciones",
+	    query =	"SELECT "
+	    		+ "c.nombre AS nombre, c.apellidop AS apellidop, c.apellidom AS apellidom, "
+	    		+ "c.sexo AS sexo, c.escuela AS escuela, k.calificacion AS calificacion "
+				+ "FROM Competidor c JOIN Calificacion k "
+				+ "ON c.idcompetidor = k.idcompetidor "
+				+ "WHERE k.iddisciplina = :iddisciplina AND c.sexo = :sexo "
+				+ "ORDER BY k.calificacion DESC",
+	    resultSetMapping = "calificacion_competidor_dto"
+	)
+	@SqlResultSetMapping(
+	    name = "calificacion_competidor_dto",
+	    classes = @ConstructorResult(
+	        targetClass = CalificacionCompetidorDto.class,
+	        columns = {
+	            @ColumnResult(name = "nombre",    	 type = String.class),
+	            @ColumnResult(name = "apellidop", 	 type = String.class),
+	            @ColumnResult(name = "apellidom",	 type = String.class),
+	            @ColumnResult(name = "sexo", 	  	 type = Integer.class),
+	            @ColumnResult(name = "escuela",  	 type = String.class),
+	            @ColumnResult(name = "calificacion", type = Float.class)
+	        }
+	    )
+	)
 public class Calificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +51,10 @@ public class Calificacion {
     @ManyToOne()
     @JoinColumn(name = "idjuez")
     private Juez juez;
+
+    @ManyToOne()
+    @JoinColumn(name = "iddisciplina")
+    private Disciplina disciplina;
 
     public Integer getIdcalificacion() {
         return idcalificacion;
@@ -67,6 +96,14 @@ public class Calificacion {
         this.juez = juez;
     }
 
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
     @Override
     public String toString() {
         return "Calificacion{" +
@@ -75,6 +112,7 @@ public class Calificacion {
                 ", calificacion=" + calificacion +
                 ", competidor=" + competidor +
                 ", juez=" + juez +
+                ", disciplina=" + disciplina +
                 '}';
     }
 }

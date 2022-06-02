@@ -14,27 +14,10 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
         <script type="text/javascript">
-            
-            // Limitar las fechas de nacimiento
-            $(function() {
-                $("#datepicker").datepicker({
-                    maxDate: new Date('2004-1-1'),
-                    minDate: new Date('1980-1-1')
-                });
-            });
-
-            // Carácteres ASCII (números) permitidos 
-            function soloNumeros(evt) {
-                var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                    return false;
-                return true;
-            }
-
             // Botón para cancelar edición
             $(document).ready(function(){
                 $("#buttonCancel").on("click", function(){
-                    window.location = "[[@{/competidores}]]"
+                    window.location = "[[@{/jueces}]]"
                 });
             });
         </script>
@@ -57,8 +40,8 @@
                 <div class="row">
                     <div class="col-md-10 mx-auto">
                         <form action="#" style="margin: 0 auto"
-                                th:action="@{/competidor/guardar}" method="post" 
-                                th:object="${competidor}">
+                                th:action="@{/juez/guardar}" method="post" 
+                                th:object="${juez}">
 
                             <!-- 1era fila de la forma -->
                             <div class="form-group row">
@@ -70,22 +53,30 @@
                                             minlength="2" maxlength="45" required>
                                 </div>
 
-                                <!-- Número de cuenta (esto se muestra solo en nuevo competidor) -->
-                                <div class="col-sm-6" th:if="${mostrarCuenta}">
-                                    <label for="ingresaCuenta">Número de cuenta:</label>
-                                    <input type="text" class="form-control" th:field="*{idcompetidor}" id="ingresaCuenta"   
-                                                placeholder="123456789" onkeypress="return soloNumeros(event)" 
-                                                minlength="9" maxlength="9" required>
+                                <!-- Disciplina -->
+                                <div class="col-sm-6">
+                                    <label for="ingresaDisciplina">Disciplina:</label>
+                                    <div id="ingresaDisciplina">
+                                        <select class="form-control selectpicker" th:field="*{disciplina}" required>
+                                            <option value="">Elige disciplina</option>
+                                            <option th:each="d : ${disciplinas}"
+                                                    th:value="${d.iddisciplina}"
+                                                    th:text ="${d.nombre}">d
+                                            </option>
+                    
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <!-- Los atributos del modelo ($) las asignamos al DTO que se devuelve (*) -->
                                 <input  type        =   "hidden"              
-                                        th:unless   =   "${mostrarCuenta}"
-                                        th:value    =   "${cuentaAnterior}"
-                                        id          =   "idcompetidor"
-                                        name        =   "idcompetidor"/>
+                                        th:unless   =   "${nuevo}"
+                                        th:value    =   "${idjuez}"
+                                        th:field    =   "*{idjuez}"
+                                        id          =   "idjuez"
+                                        name        =   "idjuez"/>
                                 <input  type        =   "hidden"
-                                        th:unless   =   "${mostrarCuenta}"
+                                        th:unless   =   "${nuevo}"
                                         th:value    =   "${correoAnterior}"
                                         id          =   "correoViejo"
                                         name        =   "correoViejo"/>
@@ -105,65 +96,6 @@
                                     <label for="ingresaMaterno">Apellido materno:</label>
                                     <input type="text" class="form-control" th:field="*{apellidom}" id="ingresaMaterno"
                                             required minlength="2" maxlength="45">
-                                </div>
-                            </div>
-
-                            <!-- 3era fila de la forma -->
-                            <div class="form-group row">
-                                
-                                <!-- Sexo -->
-                                <div class="col-sm-6">
-                                    <div class="row pl-3">
-                                        <label class="mr-5" for="ingresaSexo">Sexo:</label>
-                                        <div class="ml-5" id="ingresaSexo">
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="option1" name="option1" class="custom-control-input" 
-                                                        value="1" th:field="*{sexo}" required>
-                                                <label class="custom-control-label" for="option1">Femenino</label>
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="option2" name="option2" class="custom-control-input" 
-                                                        value="0" th:field="*{sexo}">
-                                                <label class="custom-control-label" for="option2">Masculino</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Fecha de nacimiento -->
-                                <div class="col-sm-6">
-                                    <div class="row pl-3">
-                                        <label class="mr-4" for="ingresaNacimiento">Fecha de nacimiento:</label>
-                                        <div id="ingresaNacimiento">
-                                            <input type="text" th:field="*{nacimiento}" id="datepicker" 
-                                                    pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/aaaa" required>                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 4ta fila de la forma -->
-                            <div class="form-group row">
-                                <!-- Escuela -->
-                                <div class="col-sm-6">
-                                    <label for="ingresaEscuela">Escuela:</label>
-                                    <input type="text" class="form-control" th:field="*{escuela}" id="ingresaEscuela"
-                                    minlength="8" maxlength="45" required>
-                                </div>
-
-                                <!-- Disciplina -->
-                                <div class="col-sm-6">
-                                    <label for="ingresaDisciplina">Disciplina:</label>
-                                    <div id="ingresaDisciplina">
-                                        <select class="form-control selectpicker" th:field="*{disciplina}" required>
-                                            <option value="">Elige disciplina</option>
-                                            <option th:each="d : ${disciplinas}"
-                                                    th:value="${d.iddisciplina}"
-                                                    th:text ="${d.nombre}">d
-                                            </option>
-                    
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
 

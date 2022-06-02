@@ -4,15 +4,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>[[${tituloPagina}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="/resources/templates/styles.css">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script type="text/javascript">
-
             // Limitar las fechas de nacimiento
             $(function() {
                 $("#datepicker").datepicker({
@@ -20,7 +21,6 @@
                     minDate: new Date('1980-1-1')
                 });
             });
-
             // Carácteres ASCII (números) permitidos
             function soloNumeros(evt) {
                 var ASCIICode = (evt.which) ? evt.which : evt.keyCode
@@ -28,11 +28,10 @@
                     return false;
                 return true;
             }
-
             // Botón para cancelar edición
             $(document).ready(function(){
                 $("#buttonCancel").on("click", function(){
-                    window.location = "[[@{/menu_entrenador}]]"
+                    window.location = "[[@{/juez}]]"
                 });
             });
         </script>
@@ -55,8 +54,8 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <form action="#" style="margin: 0 auto"
-                      th:action="@{/menu_juez/calificar/guardar}" method="post"
-                      th:object="${calificacion}">
+                    th:action="@{/juez/calificar/guardar}" method="post"
+                    th:object="${calificacion}">
 
                     <!-- 1era fila de la forma -->
                     <div class="form-group row">
@@ -64,15 +63,15 @@
                         <div class="col-sm-6">
                             <label for="ingresaCalificiacion">Calificación:</label>
                             <input type="text" class="form-control" id="ingresaCalificiacion"
-                                   name="calificacion"
-                                   th:field="*{calificacion}"
-                                   onkeypress="return soloNumeros(event)"
-                                   minlength="2" maxlength="45" required>
+                                name="calificacion"
+                                th:field="*{calificacion}"
+                                onkeypress="return soloNumeros(event)"
+                                minlength="2" maxlength="45" required>
                         </div>
 
                         <!-- Comentario -->
                         <div class="col-sm-6">
-                            <label for="ingresaComentario">Comentario</label>
+                            <label for="ingresaComentario">Comenario</label>
                             <input type="text" class="form-control" th:field="*{comentario}" name="comentario" id="ingresaComentario" required>
                         </div>
 
@@ -83,6 +82,9 @@
                         <input  type        =   "hidden"
                                 th:field     ="*{idjuez}"
                                 name        =   "idjuez"/>
+                        <input  type        =   "hidden"
+                                th:field     ="*{iddisciplina}"
+                                name        =   "iddisciplina"/>
                     </div>
 
                     <!-- Mensaje de error -->
@@ -93,7 +95,6 @@
                     <div class="text-center">
                         <input type="submit" value="Agregar" class="btn btn-primary m-3">
                         <input type="submit" value="Cancelar" class="btn btn-secondary" id="buttonCancel">
-                        <!-- <input type="submit" value="Cancelar" class="btn btn-secondary" formnovalidate> -->
                     </div>
                 </form>
             </div>

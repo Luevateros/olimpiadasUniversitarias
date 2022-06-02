@@ -1,30 +1,34 @@
 package com.shrek.olimpiadas.modelo;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalificacionCompetidorDto {
 
-    private Integer idcalificacion;
     private String nombre;
     private String apellidop;
     private String apellidom;
     private Integer sexo;
     private String escuela;
     private Float calificacion;
-    private Integer iddisciplina;
 
-    public Integer getIdcalificacion() {
-        return idcalificacion;
-    }
+    
+    public CalificacionCompetidorDto(String nombre, String apellidop, String apellidom, Integer sexo, String escuela,
+			Float calificacion) {
+		super();
+		this.nombre = nombre;
+		this.apellidop = apellidop;
+		this.apellidom = apellidom;
+		this.sexo = sexo;
+		this.escuela = escuela;
+		this.calificacion = calificacion;
+	}
 
-    public void setIdcalificacion(Integer idcalificacion) {
-        this.idcalificacion = idcalificacion;
-    }
-
-    public String getNombre() {
+	public String getNombre() {
         return nombre;
     }
 
@@ -72,11 +76,4 @@ public class CalificacionCompetidorDto {
         this.calificacion = calificacion;
     }
 
-    public Integer getIddisciplina() {
-        return iddisciplina;
-    }
-
-    public void setIddisciplina(Integer iddisciplina) {
-        this.iddisciplina = iddisciplina;
-    }
 }

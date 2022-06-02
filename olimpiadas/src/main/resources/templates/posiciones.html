@@ -4,6 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Inicio - Olimpiadas Universitarias</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -18,10 +20,16 @@
 
     <!-- Lista de comentarios -->
     <div class="container-fluid">
-        <div class="row mt-4 mb-2 ml-1 mr-1" style="display: flex; justify-content: space-between;">
-            <h2>Tabla de posiciones</h2>
-            <a class="btn btn-warning" th:href="@{/menu_competidor/calificacion_perso}" style="margin-top : 5px">Consultar calificaciones personales</a>
-            <a class="btn btn-warning" th:href="@{/menu_competidor}" style="margin-top : 5px">Comentarios</a>
+        <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
+            <h2 th:text="'Tabla de posiciones: ' + ${disciplina} + ', ' + ${sexo > 0 ? 'Femenino' : 'Masculino'}"></h2>
+            <div id="btn-crud">
+                <a class="btn btn-info" 
+                    th:href="@{/competidor/mis_calificaciones}">
+                    Mis calificaciones</a>
+                <a class="btn btn-warning" 
+                    th:href="@{/competidor}">
+                    Comentarios</a>
+            </div>
         </div>
 
         <!-- Lista de comentarios -->
@@ -29,18 +37,22 @@
             <table class="table table-bordered table-striped table-hover table-resposive-xl">
                 <thead class="thead-dark">
                 <tr>
-                    <th style="text-align:center; vertical-align: middle">Competidor</th>
-                    <th style="text-align:center; vertical-align: middle">Escuela</th>
-                    <th style="text-align:center; vertical-align: middle">Sexo</th>
-                    <th style="text-align:center; vertical-align: middle">Calificacion</th>
+                    <th>Posición</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Escuela</th>
+                    <th>Calificación</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="posicion : ${posiciones}">
-                    <td th:text="${calificacion.competidor.nombre} + ' ' + ${calificacion.competidor.apellidop} + ' ' + ${calificacion.competidor.apellidom}"></td>
-                    <td th:text="${calificacion.competidor.escuela}"></td>
-                    <td th:text="${calificacion.competidor.sexo}"></td>
-                    <td th:text="${calificacion.calificacion}"></td>
+                    <td th:text="${posicionStat.index} + 1"></td>
+                    <td th:text="${posicion.nombre}"></td>
+                    <td th:text="${posicion.apellidop}"></td>
+                    <td th:text="${posicion.apellidom}"></td>
+                    <td th:text="${posicion.escuela}"></td>
+                    <td th:text="${posicion.calificacion}"></td>
                 </tr>
                 </tbody>
             </table>

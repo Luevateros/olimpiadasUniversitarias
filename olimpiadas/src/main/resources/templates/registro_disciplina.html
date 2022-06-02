@@ -4,47 +4,36 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>[[${tituloPagina}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="/resources/templates/styles.css">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script type="text/javascript">
-            $(document).ready(function(){
-                // Botón para cancelar edición
-                $("#buttonCancel").on("click", function(){
-                    window.location = "[[@{/disciplinas}]]"
-                });
-
-                $('#file').change(function(){
-                    showImageThumbnail(this);
-                });
+        $(document).ready(function(){
+            // Botón para cancelar edición
+            $("#buttonCancel").on("click", function(){
+                window.location = "[[@{/disciplinas}]]"
             });
 
-            function showImageThumbnail(fileInput){
-                file = fileInput.files[0];
-                reader = new FileReader();
-                reader.onload = function(e){
-                    $('#thumbnail').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
+            $('#file').change(function(){
+                showImageThumbnail(this);
+            });
+        });
 
-        </script>
-    <style>
-        .holder {
-          text-align: center;
-          width: auto;
-          display: inline-block;
+        function showImageThumbnail(fileInput){
+            file = fileInput.files[0];
+            reader = new FileReader();
+            reader.onload = function(e){
+                $('#thumbnail').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(file);
         }
-
-        .holder img {
-          width: 50%;
-          height: auto;
-        }
-    </style>
+    </script>
 </head>
 
 <body>
@@ -55,9 +44,9 @@
     <div class="container-fluid">
     <div class="container py-3" style ="margin-top:3%;">
         <form action="#" style="margin: 0 auto"
-              th:action="@{/disciplinas/guardar}" method="post"
-              th:object="${disciplina}"
-              enctype="multipart/form-data">
+                th:action="@{/disciplinas/guardar}" method="post"
+                th:object="${disciplina}"
+                enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col-md-6 mx-auto">
@@ -73,11 +62,13 @@
                     </div>
 
                     <div class="form-group row">
+
                         <div class="col-md-12">
                             <label for="ingresaResponsable">Responsable:</label>
                             <input type="text" class="form-control" th:field="*{responsable}" id="ingresaResponsable"
                                    required minlength="2" maxlength="45">
                         </div>
+
                     </div>
 
                     <div class="form-group row">
@@ -95,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                 </div>
 
                 <div class="col-md-6 mx-auto">

@@ -1,0 +1,186 @@
+.titulo-centro {
+    text-align: center;
+    margin: 30px 0 30px 0;
+}
+
+.texto-centro {
+    text-align: center;
+}
+
+#central {
+    margin: auto;
+    width:800px;
+    /* border: 0.01rem solid;
+    border-color: red; */
+}
+
+.opcion_admin {
+    position: relative;
+    display: inline-block;
+    color: #232245;
+    text-decoration: none;
+    /* border: 0.01rem solid;
+    border-color: green; */
+    max-width: 300px;
+    max-height: 275px;
+    margin: 10px;
+    /* padding:0; */
+}
+
+.opcion_admin .img-arriba {
+    display: none;
+    position: absolute;
+    top:  33px;
+    left: 86px;
+    z-index: 99;
+}
+
+.opcion_admin:hover .img-arriba {
+    display: inline;
+}
+
+.opcion_admin > img {
+    /* border: 0.01rem solid;
+    border-color: black; */
+    max-width: 75%;
+    max-height: 75%;
+}
+
+.opcion_admin > h3 {
+    /* border: 0.01rem solid;
+    border-color: blue; */
+    margin: auto;
+    max-width: 200px;
+    text-align: center;
+}
+
+.row > a {
+    color: #232245;
+    text-decoration: none;
+}
+
+.row > a:hover {
+    color: #a2903d;
+    text-decoration: none;
+}
+
+.text-center > p {
+    margin-top: 20px;
+}
+
+a {
+    font-size: 1.2rem;
+}
+
+span {
+    color: green;
+}
+
+.titulo-crud {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.btn-crud {
+    margin-top : 5px;
+}
+
+.card-columns {
+    @include media-breakpoint-only(md) {
+    column-count: 3;
+    }
+    @include media-breakpoint-only(xl) {
+        column-count: 3;
+    }
+}
+
+.fa-arrows-rotate {
+    color: #228B22;
+}
+
+.fa-trash-can {
+    color: #A52A2A;
+}
+
+#img-login {
+    margin: 7% 0 7% 0;
+    width:  75%; 
+    height: 75%; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+#img-nav {
+    width:  150%; 
+    height: 150%
+}
+
+thead {
+    text-align: center; 
+    vertical-align: middle;
+}
+
+td {
+    text-align: center;
+}
+
+.btn-warning:hover {
+    color: white !important;
+    background-color: #a2903d !important;
+}
+
+.btn-light:hover {
+    color: white !important;
+    background-color: #333 !important;
+}
+
+.btn-secondary {
+    color: white !important;
+}
+
+.btn-secondary:hover {
+    color: white !important;
+    background-color: #333 !important;
+}
+
+.btn-primary:hover {
+    color: white !important;
+    background-color: #232245 !important;
+}
+
+.btn-info:hover {
+    color: white !important;
+    background-color: #232245 !important;
+}
+
+.container {
+    border-radius: 10px !important;
+}
+
+.input-login {
+    margin: auto !important;
+    margin-bottom: 10px !important;
+    width: 80% !important;
+}
+
+.alert-login {
+    text-align: center !important;
+    margin: auto !important;
+    width: 80% !important;
+}
+
+.alert-warning {
+    margin-top: 20px !important;
+}
+
+.holder {
+    text-align: center;
+    width: auto;
+    display: inline-block;
+}
+
+.holder img {
+    width: 50%;
+    height: auto;
+}

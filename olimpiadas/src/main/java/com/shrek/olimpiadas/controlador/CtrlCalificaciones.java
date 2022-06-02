@@ -1,18 +1,8 @@
 package com.shrek.olimpiadas.controlador;
 
-import com.shrek.olimpiadas.dto.CalificacionDto;
-import com.shrek.olimpiadas.modelo.Entrenador;
-import com.shrek.olimpiadas.modelo.Juez;
-import com.shrek.olimpiadas.modelo.Competidor;
-import com.shrek.olimpiadas.modelo.Usuario;
-import com.shrek.olimpiadas.repositorio.RepoCalificacionEntrenadorDto;
-import com.shrek.olimpiadas.repositorio.RepoEntrenador;
-import com.shrek.olimpiadas.repositorio.RepoJuez;
-import com.shrek.olimpiadas.repositorio.RepoUsuario;
-import com.shrek.olimpiadas.repositorio.RepoCompetidor;
-import com.shrek.olimpiadas.servicio.SvcCalificacion;
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
+import com.shrek.olimpiadas.dto.CalificacionDto;
+import com.shrek.olimpiadas.modelo.Competidor;
+import com.shrek.olimpiadas.modelo.Entrenador;
+import com.shrek.olimpiadas.modelo.Juez;
+import com.shrek.olimpiadas.modelo.Usuario;
+import com.shrek.olimpiadas.repositorio.RepoCompetidor;
+import com.shrek.olimpiadas.repositorio.RepoEntrenador;
+import com.shrek.olimpiadas.repositorio.RepoJuez;
+import com.shrek.olimpiadas.repositorio.RepoUsuario;
+import com.shrek.olimpiadas.servicio.SvcCalificacion;
 
 @Controller
 public class CtrlCalificaciones {
@@ -36,11 +35,7 @@ public class CtrlCalificaciones {
     @Autowired
     private RepoEntrenador repoEntrenador;
     @Autowired
-    private RepoCalificacionEntrenadorDto repoCalificacionEntrenadorDto;
-
-    @Autowired
     private RepoCompetidor repoCompt;
-
 
     @RequestMapping("/entrenador_calificaciones")
     public String consultarCalificacionesEntrenador(Model model) {
@@ -61,53 +56,52 @@ public class CtrlCalificaciones {
         return "redirect:/login";
     }
 
-    @GetMapping("/menu_competidor")
+    @GetMapping("/competidor")
     public String mostrarComentarios(Model model, Principal principal) {
         if(principal == null) {
-            System.out.println("\n\n mostrarComentarios >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
             return "redirect:/login";
         }
         String name = principal.getName();
         Usuario usuario = repoUsuario.findByCorreo(name);
-        Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
+        Competidor competidor = repoCompt.findByIdusuario(usuario.getIdusuario());
         model.addAttribute("comentarios", svcCalificacion.traeComentarios(competidor.getIdcompetidor()));
         return "menu_competidor";
     }
 
-    @RequestMapping("/menu_competidor/calificacion_perso")
+    @RequestMapping("/competidor/mis_calificaciones")
     public String mostrarCalificacionPerso(Model model, Principal principal) {
         if(principal == null) {
-            System.out.println("\n\n mostrarCalificacionesPerso >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
             return "redirect:/login";
         }
         String name = principal.getName();
         Usuario usuario = repoUsuario.findByCorreo(name);
-        Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
+        Competidor competidor = repoCompt.findByIdusuario(usuario.getIdusuario());
         model.addAttribute("calificaciones", svcCalificacion.mostrarCalificacionPerso(competidor.getIdcompetidor()));
         return "calificacion_perso";
     }
 
-    @RequestMapping("/menu_competidor/posiciones")
+    @RequestMapping("/competidor/posiciones")
     public String tablaPosiciones(Model model, Principal principal) {
         if(principal == null) {
-            System.out.println("\n\n tablaPosiciones >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
             return "redirect:/login";
         }
         String name = principal.getName();
         Usuario usuario = repoUsuario.findByCorreo(name);
-        Competidor competidor = repoCompt.findByidusuario(usuario.getIdusuario());
-        model.addAttribute("posiciones", svcCalificacion.traeCalificaciones(competidor.getIddisciplina(),competidor.getSexo()));
+        Competidor competidor = repoCompt.findByIdusuario(usuario.getIdusuario());
+        model.addAttribute("disciplina", competidor.getDisciplina());
+        model.addAttribute("sexo", competidor.getSexo());
+        model.addAttribute("posiciones", svcCalificacion.traeCalificaciones(competidor.getIddisciplina(), competidor.getSexo()));
         return "posiciones";
     }
-
-    @GetMapping("/menu_juez")
+    
+    @GetMapping("/juez")
     public String registroEntrenador(Model model, Principal principal) {
         if(principal != null){
             String name = principal.getName();
             if(name != null){
                 Usuario usuario = repoUsuario.findByCorreo(name);
                 if(usuario != null){
-                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
+                    Juez juez=  repoJuez.findByIdusuario(usuario.getIdusuario());
                     if(juez != null){
                         model.addAttribute("competidores", svcCalificacion.traeCompetidores(juez.getIdjuez()));
                         return "menu_juez";
@@ -118,19 +112,21 @@ public class CtrlCalificaciones {
         return "redirect:/login";
     }
 
-    @GetMapping("/menu_juez/calificar/{id}")
-    public String eliminarCompetidor(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes ra, Principal principal) {
+    @GetMapping("/juez/calificar/{id}")
+    public String calificarCompetidor(@PathVariable(name = "id") String id, Model model, RedirectAttributes ra, Principal principal) {
 
         if(principal != null){
             String name = principal.getName();
             if(name != null){
                 Usuario usuario = repoUsuario.findByCorreo(name);
                 if(usuario != null){
-                    Juez juez = repoJuez.findByidusuario(usuario.getIdusuario());
+                    Juez juez=  repoJuez.findByIdusuario(usuario.getIdusuario());
                     if(juez != null){
                         CalificacionDto calificacionDto = new CalificacionDto();
                         calificacionDto.setIdcompetidor(id);
                         calificacionDto.setIdjuez(juez.getIdjuez());
+                        Competidor competidor = repoCompt.findByIdcompetidor(id);
+                        calificacionDto.setIddisciplina(competidor.getIddisciplina());
                         model.addAttribute("calificacion", calificacionDto);
                         return "calificar";
                     }
@@ -139,17 +135,19 @@ public class CtrlCalificaciones {
         }
         return "redirect:/login";
     }
-    @PostMapping("/menu_juez/calificar/guardar")
+
+    @PostMapping("/juez/calificar/guardar")
     public String crearCalificacion(CalificacionDto calificacion, RedirectAttributes ra, Model model) {
         String respuesta = svcCalificacion.agregarCalificacion(calificacion);
         if(respuesta == null) {
             model.addAttribute("mensaje", "Registro completo con exito");
             model.addAttribute("competidores", svcCalificacion.traeCompetidores(calificacion.getIdjuez()));
-            return "redirect:/menu_juez";
+            return "redirect:/juez";
         }
         CalificacionDto calificacionDto = new CalificacionDto();
         calificacionDto.setIdcompetidor(calificacion.getIdcompetidor());
         calificacionDto.setIdjuez(calificacion.getIdjuez());
+        calificacionDto.setIddisciplina(calificacion.getIddisciplina());
         model.addAttribute("calificacion", calificacionDto);
         model.addAttribute("mensaje", respuesta);
         return "calificar";

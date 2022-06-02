@@ -1,11 +1,11 @@
 package com.shrek.olimpiadas.servicio;
-import com.shrek.olimpiadas.dto.CalificacionDto;
-import com.shrek.olimpiadas.modelo.CalificacionEntrenadorDto;
-import com.shrek.olimpiadas.modelo.CalificacionCompetidorDto;
-import com.shrek.olimpiadas.modelo.Competidor;
-import com.shrek.olimpiadas.modelo.Calificacion;
-
 import java.util.List;
+
+import com.shrek.olimpiadas.dto.CalificacionDto;
+import com.shrek.olimpiadas.modelo.Calificacion;
+import com.shrek.olimpiadas.modelo.CalificacionCompetidorDto;
+import com.shrek.olimpiadas.modelo.CalificacionEntrenadorDto;
+import com.shrek.olimpiadas.modelo.Competidor;
 
 public interface SvcCalificacion {
     List<Calificacion> traeComentarios(String id);

@@ -29,6 +29,11 @@ public class SvcEntrenadorImpl implements SvcEntrenador {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    public List<Entrenador> mostrarEntrenadores(){
+    	return repoEntrenador.findAll();
+    }
+    
+    @Override
     public Entrenador getEntrenador(Integer id){
         return repoEntrenador.findByIdusuario(id);
     }

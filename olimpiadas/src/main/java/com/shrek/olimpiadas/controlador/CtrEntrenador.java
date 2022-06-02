@@ -17,7 +17,13 @@ public class CtrEntrenador {
 	
     @Autowired
     private SvcEntrenador svc;
-
+    
+    @GetMapping("/entrenadores")
+	public String mostrarEntrenadores(Model model){
+		model.addAttribute("entrenadores", svc.mostrarEntrenadores());
+        return "/ver_entrenadores";
+	}
+    
     @GetMapping("/registro_entrenador")
     public String registroEntrenador(Model model, Principal principal) {
         model.addAttribute("entrenador", new EntrenadorDTO());
@@ -34,6 +40,8 @@ public class CtrEntrenador {
         model.addAttribute("mensaje", "Registro completo con exito");
         String respuesta = svc.agregarEntrenador(entrenador);
         if(respuesta == null) {
+            ra.addFlashAttribute("mensaje", "El entrenador nuevo se agregó con éxito.");
+
             ra.addFlashAttribute("usuario", new UsuarioDTO());
             ra.addFlashAttribute("error", false);
             return "redirect:/login";

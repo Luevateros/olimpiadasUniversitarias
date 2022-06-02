@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -58,8 +59,16 @@ public class Competidor {
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     private Usuario usuario;
 
-    @ManyToMany(mappedBy = "competidores")
+    @JoinTable(
+            name = "Asesorar",
+            joinColumns = @JoinColumn(name = "idcompetidor", nullable = false),
+            inverseJoinColumns = @JoinColumn(name="identrenador", nullable = false)
+    )
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+//    @ManyToMany(mappedBy = "competidores")
     private List<Entrenador> entrenadores;
+ 
 
 	public String getIdcompetidor() {
 		return idcompetidor;
@@ -123,8 +132,8 @@ public class Competidor {
         }
         return this.disciplina.getNombre();
     }
-
-	public Integer getIddisciplina() {
+    
+    public Integer getIddisciplina() {
 		if (this.disciplina == null) {
 			return null;
 		}
@@ -142,5 +151,16 @@ public class Competidor {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public String getEntrenadores() {
+		Entrenador entrenador = entrenadores.get(0);
+		return entrenador.getNombre() + " " + entrenador.getApellidop();
+	}
+
+	public void setEntrenadores(List<Entrenador> entrenadores) {
+		this.entrenadores = entrenadores;
+	}
+	
+	
     
 }

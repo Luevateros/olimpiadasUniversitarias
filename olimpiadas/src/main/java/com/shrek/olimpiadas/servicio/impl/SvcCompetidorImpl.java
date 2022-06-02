@@ -32,6 +32,11 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 	private PasswordEncoder passwordEncoder;
 	
 	@Override
+	public List<Competidor> mostrarTodosCompetidores(){
+		return repoCompetidor.findAll();
+	}
+	
+	@Override
 	public List<Competidor> mostrarCompetidores(Integer identrenador){
 		return (List<Competidor>) repoCompetidor.mostrarCompetidores(identrenador);
 	}
@@ -146,7 +151,6 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 		Competidor competidor = (Competidor) repoCompetidor.findByIdcompetidor(idcompetidor);
 		repoCompetidor.eliminarCompetidor(idcompetidor);
 		repoUsuario.eliminarUsuario(competidor.getUsuario().getIdusuario());
-		// Aquí falta eliminar también la calificación.
 	}
 	
 }

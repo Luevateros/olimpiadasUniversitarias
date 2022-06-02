@@ -7,6 +7,7 @@ import com.shrek.olimpiadas.modelo.Disciplina;
 import com.shrek.olimpiadas.modelo.Entrenador;
 
 public interface SvcEntrenador {
+	List<Entrenador> mostrarEntrenadores();
     List<Disciplina> mostrarDisciplina();
     String agregarEntrenador(EntrenadorDTO entrenador);
     Entrenador getEntrenador(Integer id);

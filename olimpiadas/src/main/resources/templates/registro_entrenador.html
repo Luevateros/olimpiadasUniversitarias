@@ -4,48 +4,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>[[${tituloPagina}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="/resources/templates/styles.css">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script type="text/javascript">
-
-            // Limitar las fechas de nacimiento
-            $(function() {
-                $("#datepicker").datepicker({
-                    maxDate: new Date('2004-1-1'),
-                    minDate: new Date('1980-1-1')
-                });
+        // Botón para cancelar edición
+        $(document).ready(function(){
+            $("#buttonCancel").on("click", function(){
+                window.location = "[[@{/login}]]"
             });
-
-            // Carácteres ASCII (números) permitidos
-            function soloNumeros(evt) {
-                var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                    return false;
-                return true;
-            }
-
-            // Botón para cancelar edición
-            $(document).ready(function(){
-                $("#buttonCancel").on("click", function(){
-                    window.location = "[[@{/}]]"
-                });
-            });
-        </script>
+        });
+    </script>
 </head>
 
 <body>
 
-<!-- Barra navegación -->
-<div th:insert="navbar :: navbar">  </div>
-
-
 <!-- Contenido -->
-<div class="container-fluid">
+<div class="container-fluid" style="width: 600px;">
+
+    <img id="img-login" th:src="@{/images/logo_vertical.svg}">
+
     <div class="text-center">
         <h1>[[${tituloPagina}]]</h1>
     </div>
@@ -55,8 +39,8 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <form action="#" style="margin: 0 auto"
-                      th:action="@{/registro_entrenador/guardar}" method="post"
-                      th:object="${entrenador}">
+                        th:action="@{/registro_entrenador/guardar}" method="post"
+                        th:object="${entrenador}">
 
                     <div class="form-group row">
 
@@ -64,24 +48,23 @@
                         <div class="col-sm-6">
                             <label for="ingresaNombre">Nombre:</label>
                             <input type="text" class="form-control" th:field="*{nombre}" id="ingresaNombre"
-                                   minlength="2" maxlength="45" required>
-                        </div>
-                        <!-- Apellido paterno -->
-                        <div class="col-sm-6">
-                            <label for="ingresaPaterno">Apellido paterno:</label>
-                            <input type="text" class="form-control" th:field="*{apellidop}" id="ingresaPaterno"
-                                   required minlength="2" maxlength="45">
+                                    minlength="2" maxlength="45" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
 
-
+                        <!-- Apellido paterno -->
+                        <div class="col-sm-6">
+                            <label for="ingresaPaterno">Apellido paterno:</label>
+                            <input type="text" class="form-control" th:field="*{apellidop}" 
+                                    id="ingresaPaterno" required minlength="2" maxlength="45">
+                        </div>
                         <!--  Apellido materno -->
                         <div class="col-sm-6">
                             <label for="ingresaMaterno">Apellido materno:</label>
-                            <input type="text" class="form-control" th:field="*{apellidom}" id="ingresaMaterno"
-                                   required minlength="2" maxlength="45">
+                            <input type="text" class="form-control" th:field="*{apellidom}" 
+                                    id="ingresaMaterno" required minlength="2" maxlength="45">
                         </div>
                     </div>
 
@@ -89,16 +72,16 @@
                         <!-- Correo -->
                         <div class="col-sm-6">
                             <label for="ingresaCorreo">Correo:</label>
-                            <input type="text" id="ingresaCorreo" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Correo inválido"
-                                   placeholder="ejemplo@correo.com" class="form-control" th:field="*{correo}"
-                                   minlength="8" maxlength="128" required>
+                            <input type="text" id="ingresaCorreo" pattern="[^@\s]+@[^@\s]+\.[^@\s]+"        
+                                    title="Correo inválido" placeholder="ejemplo@correo.com" class="form-control" th:field="*{correo}"
+                                    minlength="8" maxlength="128" required>
                         </div>
 
                         <!-- Contraseña -->
                         <div class="col-sm-6">
                             <label for="ingresaPassword">Contraseña:</label>
                             <input type="password" class="form-control" th:field="*{password}" id="ingresaPassword"
-                                   minlength="8" maxlength="20" required>
+                                minlength="8" maxlength="20" required>
                         </div>
                     </div>
 

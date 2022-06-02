@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>CRUD Competidor - Olimpiadas Universitarias</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
+        <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+        <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".link-eliminar").on("click", function(e) {
+                    e.preventDefault();
+                    numCuenta = $(this).attr("numCuenta");
+                    $("#confirmarSi").attr("href", $(this).attr("href"));
+                    $("#confirmarTexto").text("Confirme si desea eliminar al competidor con número de cuenta " + numCuenta + ".");
+                    $("#confirmarModal").modal();
+                });
+            });
+        </script>
+    </head>
+    <body>
+
+    <!-- Barra navegación -->
+    <div th:insert="navbar :: navbar">  </div>
+
+
+        <!-- Contenido -->
+        <div class="container-fluid">
+
+            <div sec:authorize="hasAuthority('ADMIN')" class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
+                <h2>Competidores</h2>
+                <div id="btn-crud">
+                    <a class="btn btn-secondary"
+                        th:href="@{/admin}">Regresar</a>
+                </div>
+            </div>
+            
+            <div sec:authorize="hasAuthority('ENTRENADOR')" class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
+                <h2>Administrar mis competidores</h2>
+                <div id="btn-crud">
+                    <a class="btn btn-info" 
+                        th:href="@{/entrenador_calificaciones}">
+                        Calificaciones</a>
+                    <a class="btn btn-warning"
+                        th:href="@{/competidor/nuevo}">
+                        Nuevo competidor</a>
+                </div>
+            </div>
+            
+            <!-- Mensaje de éxito -->
+            <div th:if="${mensaje != null}" class="alert alert-success text-center">
+                [[${mensaje}]]
+            </div>
+
+            <!-- Lista de competidores -->
+            <div>
+                <table class="table table-bordered table-striped table-hover table-resposive-xl">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th sec:authorize="hasAuthority('ENTRENADOR')">No. de cuenta</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Sexo</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Escuela</th>
+                            <th>Disciplina</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Entrenador</th>
+                            <th sec:authorize="hasAuthority('ENTRENADOR')">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="competidor : ${competidores}">
+                            <td sec:authorize="hasAuthority('ENTRENADOR')" 
+                                th:text="${competidor.idcompetidor}"></td>
+                            <td th:text="${competidor.nombre}"></td>
+                            <td th:text="${competidor.apellidop}"></td>
+                            <td th:text="${competidor.apellidom}"></td>
+                            <td th:text="${competidor.sexo > 0 ? 'Femenino' : 'Masculino'}"></td>
+                            <td th:text="${competidor.nacimiento}"></td>
+                            <td th:text="${competidor.escuela}"></td>
+                            <td th:text="${competidor.disciplina}"></td>
+                            <td sec:authorize="hasAuthority('ADMIN')"
+                                th:text="${competidor.entrenadores}"></td>
+                            <td sec:authorize="hasAuthority('ENTRENADOR')">
+                                <a class="fas fa-arrows-rotate fa-2x"
+                                    th:href="@{'/competidor/editar/' + ${competidor.idcompetidor}}" 
+                                    title="Actualizar al competidor"></a>  
+                                &nbsp; &nbsp;
+                                <a class="fas fa-trash-can fa-2x link-eliminar"
+                                    th:href = "@{'/competidor/eliminar/' + ${competidor.idcompetidor}}" 
+                                    th:numCuenta = "${competidor.idcompetidor}"
+                                    title="Eliminar al competidor"></a> 
+                            </td> 
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal: pop-up para confirmar si se elimina al competidor -->
+            <div class="modal fade text-center" id="confirmarModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Confirmación para eliminar</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <span id="confirmarTexto"></span>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-success" href="" id="confirmarSi">Confirmar</a>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div th:insert="footer :: footer">  </div>
+        </div>
+    </body>
+
+</html>

@@ -51,7 +51,33 @@ public class Entrenador {
 	public void setIdentrenador(Integer identrenador) {
 		this.identrenador = identrenador;
 	}
-    
-    
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidop() {
+		return apellidop;
+	}
+
+	public void setApellidop(String apellidop) {
+		this.apellidop = apellidop;
+	}
+	
+	public String getApellidom() {
+		return apellidom;
+	}
+
+	public void setApellidom(String apellidom) {
+		this.apellidom = apellidom;
+	}
+
+	public Integer getCompetidores() {
+		return competidores.size();
+	}    
     
 }

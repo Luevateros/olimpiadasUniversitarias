@@ -4,6 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Inicio - Olimpiadas Universitarias</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -18,10 +20,16 @@
 
     <!-- Lista de comentarios -->
     <div class="container-fluid">
-        <div class="row mt-4 mb-2 ml-1 mr-1" style="display: flex; justify-content: space-between;">
+        <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
             <h2>Comentarios</h2>
-            <a class="btn btn-warning" th:href="@{/menu_competidor/calificacion_perso}" style="margin-top : 5px">Consultar calificaciones personales</a>
-            <a class="btn btn-warning" th:href="@{/menu_competidor/posiciones}" style="margin-top : 5px">Tabla de posiciones</a>
+            <div id="btn-crud">
+                <a class="btn btn-info" 
+                    th:href="@{/competidor/mis_calificaciones}">
+                    Mis calificaciones</a>
+                <a class="btn btn-warning" 
+                    th:href="@{/competidor/posiciones}">
+                    Tabla de posiciones</a>
+            </div>
         </div>
 
         <!-- Lista de comentarios -->
@@ -29,8 +37,8 @@
             <table class="table table-bordered table-striped table-hover table-resposive-xl">
                 <thead class="thead-dark">
                 <tr>
-                    <th style="text-align:center; vertical-align: middle">Juez</th>
-                    <th style="text-align:center; vertical-align: middle">Comentario</th>
+                    <th>Juez</th>
+                    <th>Comentario</th>
                 </tr>
                 </thead>
                 <tbody>

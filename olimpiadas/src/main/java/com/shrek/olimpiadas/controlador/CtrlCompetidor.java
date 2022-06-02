@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shrek.olimpiadas.dto.CompetidorDTO;
 import com.shrek.olimpiadas.modelo.Entrenador;
+import com.shrek.olimpiadas.modelo.TipoUsuario;
 import com.shrek.olimpiadas.modelo.Usuario;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
 import com.shrek.olimpiadas.servicio.SvcCompetidor;
@@ -33,30 +34,19 @@ public class CtrlCompetidor {
 	@Autowired
     private RepoUsuario repoUsuario;
 	
-	private Entrenador getEntrenador(String correo) {
-		if(correo == null)
-			System.out.println("\n\n getEntrenador >>> correo es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
-		Usuario usuario = repoUsuario.findByCorreo(correo);
-		if(usuario == null)
-			System.out.println("\n\n getEntrenador >>> usuario es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
-		Entrenador entrenador = svcEntrenador.getEntrenador(usuario.getIdusuario());
-		if(entrenador == null)
-			System.out.println("\n\n getEntrenador >>> entrenador es nulo >>>>>>>>>>>>>>>>>>>>>>>> " + usuario.getIdusuario() + " \n\n ");
-		return entrenador;
-	}
-	
-	@GetMapping("/menu_entrenador")
+	@GetMapping("/competidores")
 	public String mostrarCompetidores(Model model, Principal principal){
-		if(principal == null) {
-			System.out.println("\n\n mostrarCompetidores >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
-			return "redirect:/login";
+		Usuario usuario = repoUsuario.findByCorreo(principal.getName());
+		if(usuario.getTipousuario() == TipoUsuario.ADMIN) {
+			model.addAttribute("competidores", svc.mostrarTodosCompetidores());
+		} else {
+			Entrenador entrenador = svcEntrenador.getEntrenador(usuario.getIdusuario());
+			model.addAttribute("competidores", svc.mostrarCompetidores(entrenador.getIdentrenador()));
 		}
-		Entrenador entrenador = getEntrenador(principal.getName());
-		model.addAttribute("competidores", svc.mostrarCompetidores(entrenador.getIdentrenador()));
-        return "menu_entrenador";
+        return "crud_competidor";
 	}
 	
-	@GetMapping("/menu_entrenador/nuevo")
+	@GetMapping("/competidor/nuevo")
 	public String mostrarFormaNuevo(Model model) {
 		model.addAttribute("competidor", new CompetidorDTO());
 		model.addAttribute("disciplinas", svc.mostrarDisciplina());
@@ -67,7 +57,7 @@ public class CtrlCompetidor {
 		return "registro_competidor";
 	}
 	
-	@PostMapping("/menu_entrenador/guardar")
+	@PostMapping("/competidor/guardar")
 	public String guardarCompetidor(CompetidorDTO competidor, RedirectAttributes ra, Model model, Principal p) {
 		
 		// Al editar no se puede cambiar el número de cuenta.
@@ -114,14 +104,12 @@ public class CtrlCompetidor {
                 
         // Agregar competidor nuevo
         if(mostrarCuenta) {
-        	if(p == null) {
-    			System.out.println("\n\n guardarCompetidor >>> principal es nulo >>>>>>>>>>>>>>>>>>>>>>>> \n\n ");
-    		}
-        	Entrenador entrenador = getEntrenador(p.getName());
+        	Usuario usuario = repoUsuario.findByCorreo(p.getName());
+        	Entrenador entrenador = svcEntrenador.getEntrenador(usuario.getIdusuario());
         	respuesta = svc.agregarCompetidor(competidor, entrenador.getIdentrenador());
     		if(respuesta == null) {
     			ra.addFlashAttribute("mensaje", "El competidor nuevo se agregó con éxito.");
-    			return "redirect:/menu_entrenador";
+    			return "redirect:/competidores";
     		}
         } 
         // Actualizar competidor
@@ -129,7 +117,7 @@ public class CtrlCompetidor {
         	respuesta = svc.actualizarCompetidor(competidor);
     		if(respuesta == null) {
     			ra.addFlashAttribute("mensaje", "El competidor se actualizó con éxito.");
-    			return "redirect:/menu_entrenador";
+    			return "redirect:/competidores";
     		}
         }
 		
@@ -144,12 +132,12 @@ public class CtrlCompetidor {
 	}
 	
 	
-	@GetMapping("/menu_entrenador/editar/{id}")
+	@GetMapping("/competidor/editar/{id}")
 	public String actualizarCompetidor(@PathVariable(name = "id") String id, Model model, RedirectAttributes ra) {
 		CompetidorDTO competidor = svc.getCompetidor(id);
 		if(competidor == null) {
 			ra.addFlashAttribute("mensaje", "No se encontró al competidor con número de cuenta " + id);
-			return "redirect:/menu_entrenador";
+			return "redirect:/competidores";
 		}
 		model.addAttribute("competidor", competidor);
 		model.addAttribute("disciplinas", svc.mostrarDisciplina());
@@ -160,16 +148,16 @@ public class CtrlCompetidor {
 		return "registro_competidor";
 	}
 	
-	@GetMapping("/menu_entrenador/eliminar/{id}")
+	@GetMapping("/competidor/eliminar/{id}")
 	public String eliminarCompetidor(@PathVariable(name = "id") String id, Model model, RedirectAttributes ra) {
 		CompetidorDTO competidor = svc.getCompetidor(id);
 		if(competidor == null) {
 			ra.addFlashAttribute("mensaje", "No se encontró al competidor con número de cuenta " + id);
-			return "redirect:/menu_entrenador";
+			return "redirect:/competidores";
 		}
 		svc.eliminarCompetidor(id);
 		ra.addFlashAttribute("mensaje", "El competidor con número de cuenta " + id + " se eliminó con éxito.");
-		return "redirect:/menu_entrenador";
+		return "redirect:/competidores";
 	}
 	
 }

@@ -3,58 +3,54 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Inicio - Olimpiadas Universitarias</title>
+        <title>Entrenadores - Olimpiadas Universitarias</title>
         <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}"> 
         <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"> 
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
         <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
         <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     </head>
-
     <body>
 
-        <!-- Barra navegación -->
-        <div th:insert="navbar :: navbar">  </div>
+    <!-- Barra navegación -->
+    <div th:insert="navbar :: navbar">  </div>
 
         <!-- Contenido -->
         <div class="container-fluid">
 
-            <div class="row mt-4 mb-2 ml-1 mr-1 titulo-crud">
-                <h2>Calificaciones de mis competidores</h2>
+            <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
+                <h2>Entrenadores</h2>
                 <div id="btn-crud">
                     <a class="btn btn-secondary"
-                        th:href="@{/competidores}">Regresar</a>
+                    th:href="@{/admin}">Regresar</a>
                 </div>
             </div>
 
-
-            <!-- Lista de competidores -->
+            <!-- Lista de Entrenadores -->
             <div>
                 <table class="table table-bordered table-striped table-hover table-resposive-xl">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th>Juez</th>
-                        <th>Calificación</th>
-                        <th>Disciplina</th>
-                    </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>No. de competidores</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="calificacion : ${calificaciones}">
-                        <td th:text="${calificacion.nombre}"></td>
-                        <td th:text="${calificacion.apellidop}"></td>
-                        <td th:text="${calificacion.apellidom}"></td>
-                        <td th:text="${calificacion.juez}"></td>
-                        <td th:text="${calificacion.calificacion}"></td>
-                        <td th:text="${calificacion.disciplina}"></td>
-                    </tr>
+                        <tr th:each="entrenador : ${entrenadores}">
+                            <td th:text="${entrenador.nombre}"></td>
+                            <td th:text="${entrenador.apellidop}"></td>
+                            <td th:text="${entrenador.apellidom}"></td>
+                            <td th:text="${entrenador.competidores}"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+
             <!-- Footer -->
             <div th:insert="footer :: footer">  </div>
         </div>
     </body>
+
 </html>
