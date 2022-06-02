@@ -44,16 +44,16 @@ public class CtrDisciplina {
                                     RedirectAttributes ra,Model model) throws IOException {
         Integer id = disciplina.getIddisciplina();
         String respuesta = "Esta disciplina ya se encuentra registrada.";
+        Boolean registrada = svc.registrada(disciplina.getNombre());
         model.addAttribute("tituloPagina", "Disciplina");
 
-        if (!svc.registrada(disciplina.getNombre())) {
+        if (!registrada || id != null) {
             //Guardar imagen
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             String ima = disciplina.imagen();
             if (fileName.length() != 0) {
-                fileName = LocalTime.now() + fileName;
-
-                disciplina.setImagen(fileName);
+                disciplina.setImagen(LocalTime.now() + fileName);
+                System.out.println(fileName);
                 String uploadDir = "./disciplinas-imagenes/";
                 Path uploadPath = Paths.get(uploadDir);
                 if (!Files.exists(uploadPath))
@@ -87,10 +87,13 @@ public class CtrDisciplina {
                             Files.delete(fileToDeletePath);
                     }
                 }
-                respuesta = svc.actualizarDisciplina(disciplina);
-                if (respuesta == null) {
-                    ra.addFlashAttribute("mensaje", "La disciplina se actualizó con éxito.");
-                    return "redirect:/disciplinas";
+                String original = svc.mostrarDisciplina(id).getNombre();
+                if (original.equals(disciplina.getNombre())) {
+                    respuesta = svc.actualizarDisciplina(disciplina);
+                    if (respuesta == null) {
+                        ra.addFlashAttribute("mensaje", "La disciplina se actualizó con éxito.");
+                        return "redirect:/disciplinas";
+                    }
                 }
                 model.addAttribute("tituloPagina", "Editar disciplina");
             }
