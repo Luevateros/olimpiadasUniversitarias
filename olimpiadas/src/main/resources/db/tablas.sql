@@ -3,13 +3,12 @@ CREATE database proyecto;
 
 USE proyecto;
 
-
 CREATE TABLE IF NOT EXISTS `Disciplina` (
   `iddisciplina` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `responsable` varchar(50) NOT NULL,
   `imagen` varchar(60) DEFAULT NULL,
-  `descripcion` varchar(60) DEFAULT NULL,
+  `descripcion` TEXT DEFAULT NULL,
   PRIMARY KEY (`iddisciplina`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

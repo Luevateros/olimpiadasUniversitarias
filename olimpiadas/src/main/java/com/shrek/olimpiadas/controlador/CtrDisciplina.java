@@ -56,7 +56,6 @@ public class CtrDisciplina {
             if (fileName.length() != 0) {
                 fileName = LocalTime.now() + fileName;
                 disciplina.setImagen(fileName);
-                System.out.println(fileName);
                 String uploadDir = "./disciplinas-imagenes/";
                 Path uploadPath = Paths.get(uploadDir);
                 if (!Files.exists(uploadPath))
@@ -91,13 +90,11 @@ public class CtrDisciplina {
             if(original.equals(disciplina.getNombre()) || !registrada) {
                 if (fileName.length() != 0 && ima.length() != 0) {
                     if (!ima.equals("default.jpg")) {
-                        String uploadDir = "./disciplinas-imagenes/" + disciplina.getImagen();
-                        //Path uploadPath = Paths.get(uploadDir);
-                        Path fileToDeletePath = Paths.get(uploadDir);
-                        System.out.println(fileToDeletePath.toFile().toString());
-                        System.out.println("borar imagen anterios");
-                        if (Files.exists(fileToDeletePath))
-                            Files.delete(fileToDeletePath);
+                        String uploadDir = "./disciplinas-imagenes/" + ima;
+                        Path uploadPath = Paths.get(uploadDir);
+
+                        if (Files.exists(uploadPath))
+                            Files.delete(uploadPath);
                     }
                 }
                 respuesta = svc.actualizarDisciplina(disciplina);
@@ -140,9 +137,11 @@ public class CtrDisciplina {
         String m = (res == null)? "La disciplina se eliminó con éxito.":res;
         if (res == null){
             if (!ima.equals("/disciplinas-imagenes/default.jpg")) {
-                Path fileToDeletePath = Paths.get("./" + ima);
-                if(Files.exists(fileToDeletePath))
-                    Files.delete(fileToDeletePath);
+                String uploadDir = "./disciplinas-imagenes/" + ima;
+                Path uploadPath = Paths.get(uploadDir);
+
+                if (Files.exists(uploadPath))
+                    Files.delete(uploadPath);
             }
         }
         ra.addFlashAttribute("mensaje", m);
