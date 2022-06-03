@@ -42,17 +42,20 @@ public class CtrDisciplina {
     public String agregarDisciplina(DisciplinaDTO disciplina,
                                     @RequestParam(required = false ,name = "file") MultipartFile multipartFile,
                                     RedirectAttributes ra,Model model) throws IOException {
+
         Integer id = disciplina.getIddisciplina();
         String respuesta = "Esta disciplina ya se encuentra registrada.";
         Boolean registrada = svc.registrada(disciplina.getNombre());
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        String ima = disciplina.getImagen();
+
         model.addAttribute("tituloPagina", "Disciplina");
 
-        if (!registrada || id != null) {
+        if(!registrada || id != null) {
             //Guardar imagen
-            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            String ima = disciplina.imagen();
             if (fileName.length() != 0) {
-                disciplina.setImagen(LocalTime.now() + fileName);
+                fileName = LocalTime.now() + fileName;
+                disciplina.setImagen(fileName);
                 System.out.println(fileName);
                 String uploadDir = "./disciplinas-imagenes/";
                 Path uploadPath = Paths.get(uploadDir);
@@ -66,8 +69,10 @@ public class CtrDisciplina {
                     throw new IOException("No se pudo guardar la imagen " + fileName);
                 }
             }
+        }
 
-            // Guardar nuevo
+        if(!registrada && id == null){
+        // Guardar nuevo
             if (id == null) {
                 if (fileName.length() == 0)
                     disciplina.setImagen("default.jpg");
@@ -77,26 +82,31 @@ public class CtrDisciplina {
                     ra.addFlashAttribute("mensaje", "La disciplina se agregó con éxito.");
                     return "redirect:/disciplinas";
                 }
-            } else {
-                // Actualizar
+            }
+        }
+
+        // Actualizar
+        if(id != null){
+            String original = svc.mostrarDisciplina(id).getNombre();
+            if(original.equals(disciplina.getNombre()) || !registrada) {
                 if (fileName.length() != 0 && ima.length() != 0) {
-                    ima = ima.substring(22);
-                    if (!ima.equals("/disciplinas-imagenes/default.jpg")) {
-                        Path fileToDeletePath = Paths.get("." + ima);
+                    if (!ima.equals("default.jpg")) {
+                        String uploadDir = "./disciplinas-imagenes/" + disciplina.getImagen();
+                        //Path uploadPath = Paths.get(uploadDir);
+                        Path fileToDeletePath = Paths.get(uploadDir);
+                        System.out.println(fileToDeletePath.toFile().toString());
+                        System.out.println("borar imagen anterios");
                         if (Files.exists(fileToDeletePath))
                             Files.delete(fileToDeletePath);
                     }
                 }
-                String original = svc.mostrarDisciplina(id).getNombre();
-                if (original.equals(disciplina.getNombre())) {
-                    respuesta = svc.actualizarDisciplina(disciplina);
-                    if (respuesta == null) {
-                        ra.addFlashAttribute("mensaje", "La disciplina se actualizó con éxito.");
-                        return "redirect:/disciplinas";
-                    }
+                respuesta = svc.actualizarDisciplina(disciplina);
+                if (respuesta == null) {
+                    ra.addFlashAttribute("mensaje", "La disciplina se actualizó con éxito.");
+                    return "redirect:/disciplinas";
                 }
-                model.addAttribute("tituloPagina", "Editar disciplina");
             }
+            model.addAttribute("tituloPagina", "Editar disciplina");
         }
 
         // Si hubo un error
@@ -125,7 +135,7 @@ public class CtrDisciplina {
             ra.addFlashAttribute("mensaje", "No se encontró la disciplina");
             return "redirect:/disciplinas";
         }
-        String ima = disciplina.imagen();
+        String ima = disciplina.getImagen();
         String res = svc.eliminarDisciplina(id);
         String m = (res == null)? "La disciplina se eliminó con éxito.":res;
         if (res == null){

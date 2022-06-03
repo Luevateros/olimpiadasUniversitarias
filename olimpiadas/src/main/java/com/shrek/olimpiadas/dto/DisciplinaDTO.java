@@ -77,12 +77,12 @@ public class DisciplinaDTO {
      * @return String - Nombre de la imagen de la disciplina
      * */
     public String getImagen() {
-        return "/disciplinas-imagenes/" + imagen;
+        return imagen;
     }
 
     @Transient
     public String imagen(){
-        return imagen;
+        return "/disciplinas-imagenes/" + imagen;
     }
     /**
      * Método que establece la descripción de la discilina.

@@ -13,9 +13,8 @@
         $(document).ready(function() {
             $(".link-eliminar").on("click", function(e) {
                 e.preventDefault();
-                nombre = $(this).attr("nombre");
                 $("#confirmarSi").attr("href", $(this).attr("href"));
-                $("#confirmarTexto").text("Confirme si desea eliminar la disciplina: " + nombre + ".");
+                $("#confirmarTexto").text("Confirme si desea eliminar la disciplina.");
                 $("#confirmarModal").modal();
             });
         });
