@@ -55,16 +55,7 @@ public class SvcCalificacionImpl implements SvcCalificacion {
     }
 
     @Override
-    public List<Calificacion> mostrarCalificacionPerso(String id) {
-        List<Calificacion> calificaciones = repoCalificacion.findByIdcompetidor(id);
-        if(calificaciones != null){
-            return calificaciones;
-        }
-        return null;
-    }
-
-    @Override
-    public List<Calificacion> traeComentarios(String id) {
+    public List<Calificacion> competidorCalificacion(String id) {
         List<Calificacion> comentarios = repoCalificacion.findByIdcompetidor(id);
         if(comentarios != null){
             return comentarios;

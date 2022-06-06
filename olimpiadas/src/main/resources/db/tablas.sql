@@ -91,10 +91,9 @@ CREATE TABLE `Calificacion` (
   CONSTRAINT `idcalificacion_competidor` FOREIGN KEY (`idcompetidor`) REFERENCES `competidor` (`idcompetidor`),
   CONSTRAINT `idcalificacion_disciplina` FOREIGN KEY (`iddisciplina`) REFERENCES `disciplina` (`iddisciplina`),
   CONSTRAINT `idcalificacion_juez` FOREIGN KEY (`idjuez`) REFERENCES `juez` (`idjuez`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE VIEW IF NOT EXISTS
-	CalificacionEntrenador AS
+CREATE VIEW IF NOT EXISTS CalificacionEntrenador AS
     SELECT calificacion.idcalificacion,
     competidor.nombre as nombre,
     competidor.apellidop, competidor.apellidom,

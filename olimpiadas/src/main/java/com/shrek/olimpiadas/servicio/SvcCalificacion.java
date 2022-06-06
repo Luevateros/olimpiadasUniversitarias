@@ -8,9 +8,8 @@ import com.shrek.olimpiadas.modelo.CalificacionEntrenadorDto;
 import com.shrek.olimpiadas.modelo.Competidor;
 
 public interface SvcCalificacion {
-    List<Calificacion> traeComentarios(String id);
+    List<Calificacion> competidorCalificacion(String id);
     List<CalificacionCompetidorDto> traeCalificaciones(Integer id, Integer sexo);
-    List<Calificacion> mostrarCalificacionPerso(String id);
     List<Competidor> traeCompetidores(Integer id);
     String agregarCalificacion(CalificacionDto calificacion);
     List<CalificacionEntrenadorDto> traeCalificacionesEntrenador(Integer id);
