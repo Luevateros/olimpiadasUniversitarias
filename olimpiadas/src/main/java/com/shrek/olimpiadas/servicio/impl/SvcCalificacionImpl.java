@@ -68,6 +68,9 @@ public class SvcCalificacionImpl implements SvcCalificacion {
         if(calificacion.getComentario() == null){
             return "Favor de agregar un comentario";
         }
+        if(calificacion.getCalificacion() > 10 || calificacion.getCalificacion() < 0){
+            return "Ingrese una calificacion valida";
+        }
         repoCalificacion.crearCalificacion(
         								calificacion.getComentario(), 
         								calificacion.getCalificacion(),

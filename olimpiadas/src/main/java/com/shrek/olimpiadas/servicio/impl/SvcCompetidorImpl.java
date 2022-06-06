@@ -59,7 +59,8 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 		
 		usuarioNuevo = new Usuario();
 		usuarioNuevo.setCorreo(competidor.getCorreoNuevo());
-		usuarioNuevo.setPassword(passwordEncoder.encode(competidor.getPassword()));
+		//usuarioNuevo.setPassword(passwordEncoder.encode(competidor.getPassword()));
+		usuarioNuevo.setPassword(competidor.getPassword());
 		usuarioNuevo.setTipousuario(TipoUsuario.COMPETIDOR);
 		
 		Usuario usuarioGuardado = repoUsuario.save(usuarioNuevo);

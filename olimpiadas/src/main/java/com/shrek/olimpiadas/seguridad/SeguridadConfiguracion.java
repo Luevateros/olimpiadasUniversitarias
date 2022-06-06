@@ -19,9 +19,15 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DetalleUsuarioServicio detalleUsuarioServicio;
 
+	/*
 	@Bean
 	public PasswordEncoder PasswordEncoder() {
 		return new BCryptPasswordEncoder();
+	}*/
+
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		return new PasswordEnconderTest();
 	}
 
     @Override
@@ -40,8 +46,9 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		auth.userDetailsService((UserDetailsService) detalleUsuarioServicio).passwordEncoder(passwordEncoder);
+		//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		PasswordEnconderTest passwordEnconder = new PasswordEnconderTest();
+		auth.userDetailsService((UserDetailsService) detalleUsuarioServicio).passwordEncoder(passwordEnconder);
 	}
     
 }
