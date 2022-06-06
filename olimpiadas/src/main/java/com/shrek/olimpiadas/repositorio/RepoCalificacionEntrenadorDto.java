@@ -12,18 +12,19 @@ import java.util.List;
 public interface RepoCalificacionEntrenadorDto extends JpaRepository<CalificacionEntrenadorDto, Integer> {
 
     @Query(value = "SELECT calificacion.idcalificacion,\n" +
-            "competidor.nombre as nombre,\n" +
-            "competidor.apellidop, competidor.apellidom, \n" +
-            "juez.nombre as juez, calificacion, disciplina.nombre as disciplina\n" +
-            "FROM calificacion INNER JOIN asesorar \n" +
-            "ON calificacion.idcompetidor = asesorar.idcompetidor \n" +
-            "INNER JOIN competidor \n" +
-            "ON calificacion.idcompetidor = asesorar.idcompetidor \n" +
-            "INNER JOIN disciplina \n" +
-            "ON disciplina.iddisciplina = disciplina.iddisciplina \n" +
-            "INNER JOIN juez \n" +
-            "ON juez.idjuez = calificacion.idjuez \n" +
-            "WHERE asesorar.identrenador = :identrenador", nativeQuery = true)
+            "            competidor.nombre as nombre,\n" +
+            "            competidor.apellidop, competidor.apellidom,\n" +
+            "            juez.nombre as juez, calificacion, disciplina.nombre as disciplina\n" +
+            "            FROM calificacion INNER JOIN asesorar\n" +
+            "            ON calificacion.idcompetidor = asesorar.idcompetidor\n" +
+            "            INNER JOIN competidor\n" +
+            "            ON competidor.idcompetidor = asesorar.idcompetidor\n" +
+            "            INNER JOIN disciplina\n" +
+            "            ON disciplina.iddisciplina = disciplina.iddisciplina\n" +
+            "            INNER JOIN juez\n" +
+            "            ON juez.idjuez = calificacion.idjuez\n" +
+            "            WHERE asesorar.identrenador = :identrenador \n" +
+            "            GROUP BY calificacion.idcalificacion;", nativeQuery = true)
     List<CalificacionEntrenadorDto> mostrarCalificaciones(@Param("identrenador") Integer identrenador);
 
 }
