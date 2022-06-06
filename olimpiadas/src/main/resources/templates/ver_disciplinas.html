@@ -13,9 +13,8 @@
         $(document).ready(function() {
             $(".link-eliminar").on("click", function(e) {
                 e.preventDefault();
-                nombre = $(this).attr("nombre");
                 $("#confirmarSi").attr("href", $(this).attr("href"));
-                $("#confirmarTexto").text("Confirme si desea eliminar la disciplina: " + nombre + ".");
+                $("#confirmarTexto").text("Confirme si desea eliminar la disciplina.");
                 $("#confirmarModal").modal();
             });
         });
@@ -47,7 +46,7 @@
         <div class="card-columns">
             <div class="card border-primary h-100" th:each="disciplina : ${disciplinas}" style="margin-top:1%; border-radius:2%;">
                 <div class="card-img-top">
-                    <img th:src="@{${disciplina.Imagen}}" alt="" class="img-fluid" style="border-radius:2%; height: 100%; width: 100%; object-fit: contain">
+                    <img th:src="'/disciplinas-imagenes/' + @{${disciplina.imagen}}" alt="" class="img-fluid" style="border-radius:2%; height: 100%; width: 100%; object-fit: contain">
                 </div>
                 <div class="card-body">
                     <div class="card-title">
