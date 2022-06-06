@@ -57,27 +57,19 @@ public class CtrlCalificaciones {
     }
 
     @GetMapping("/competidor")
-    public String mostrarComentarios(Model model, Principal principal) {
+    public String competidorCalificacion(Model model, Principal principal) {
         if(principal == null) {
             return "redirect:/login";
         }
         String name = principal.getName();
         Usuario usuario = repoUsuario.findByCorreo(name);
         Competidor competidor = repoCompt.findByIdusuario(usuario.getIdusuario());
-        model.addAttribute("comentarios", svcCalificacion.traeComentarios(competidor.getIdcompetidor()));
+        System.out.println(competidor);
+        model.addAttribute("nombre", competidor.getNombre());
+        model.addAttribute("apellidop", competidor.getApellidop());
+        model.addAttribute("apellidom", competidor.getApellidom());
+        model.addAttribute("comentarios", svcCalificacion.competidorCalificacion(competidor.getIdcompetidor()));
         return "menu_competidor";
-    }
-
-    @RequestMapping("/competidor/mis_calificaciones")
-    public String mostrarCalificacionPerso(Model model, Principal principal) {
-        if(principal == null) {
-            return "redirect:/login";
-        }
-        String name = principal.getName();
-        Usuario usuario = repoUsuario.findByCorreo(name);
-        Competidor competidor = repoCompt.findByIdusuario(usuario.getIdusuario());
-        model.addAttribute("calificaciones", svcCalificacion.mostrarCalificacionPerso(competidor.getIdcompetidor()));
-        return "calificacion_perso";
     }
 
     @RequestMapping("/competidor/posiciones")

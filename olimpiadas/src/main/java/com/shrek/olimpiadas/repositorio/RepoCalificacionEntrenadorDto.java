@@ -23,7 +23,7 @@ public interface RepoCalificacionEntrenadorDto extends JpaRepository<Calificacio
             "ON disciplina.iddisciplina = disciplina.iddisciplina \n" +
             "INNER JOIN juez \n" +
             "ON juez.idjuez = calificacion.idjuez \n" +
-            "WHERE asesorar.identrenador = 1;", nativeQuery = true)
+            "WHERE asesorar.identrenador = :identrenador", nativeQuery = true)
     List<CalificacionEntrenadorDto> mostrarCalificaciones(@Param("identrenador") Integer identrenador);
 
 }

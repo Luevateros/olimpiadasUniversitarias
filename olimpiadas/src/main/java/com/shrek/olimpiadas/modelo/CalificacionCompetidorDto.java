@@ -16,8 +16,7 @@ public class CalificacionCompetidorDto {
     private String escuela;
     private Float calificacion;
 
-
-    public String getNombre() {
+	public String getNombre() {
         return nombre;
     }
 

@@ -21,11 +21,8 @@
     <!-- Lista de comentarios -->
     <div class="container-fluid">
         <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
-            <h2>Comentarios</h2>
+            <h2 th:text="'Mis calificaciones: ' + ${nombre} + ' ' + ${apellidop} + ' ' + ${apellidom}"></h2>
             <div id="btn-crud">
-                <a class="btn btn-info" 
-                    th:href="@{/competidor/mis_calificaciones}">
-                    Mis calificaciones</a>
                 <a class="btn btn-warning" 
                     th:href="@{/competidor/posiciones}">
                     Tabla de posiciones</a>
@@ -39,12 +36,14 @@
                 <tr>
                     <th>Juez</th>
                     <th>Comentario</th>
+                    <th>Calificación</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="calificacion : ${comentarios}">
                     <td th:text="${calificacion.juez.nombre} + ' ' + ${calificacion.juez.apellidop} + ' ' + ${calificacion.juez.apellidom}"></td>
                     <td th:text="${calificacion.comentario}"></td>
+                    <td th:text="${calificacion.calificacion}"></td>
                 </tr>
                 </tbody>
             </table>

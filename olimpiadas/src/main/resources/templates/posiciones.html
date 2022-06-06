@@ -23,12 +23,9 @@
         <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
             <h2 th:text="'Tabla de posiciones: ' + ${disciplina} + ', ' + ${sexo > 0 ? 'Femenino' : 'Masculino'}"></h2>
             <div id="btn-crud">
-                <a class="btn btn-info" 
-                    th:href="@{/competidor/mis_calificaciones}">
-                    Mis calificaciones</a>
                 <a class="btn btn-warning" 
                     th:href="@{/competidor}">
-                    Comentarios</a>
+                    Mis calificaciones</a>
             </div>
         </div>
 

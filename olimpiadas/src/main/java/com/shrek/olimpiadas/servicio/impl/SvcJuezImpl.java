@@ -49,7 +49,8 @@ public class SvcJuezImpl implements SvcJuez {
 	
 		usuarioNuevo = new Usuario();
 		usuarioNuevo.setCorreo(juez.getCorreoNuevo());
-		usuarioNuevo.setPassword(passwordEncoder.encode(juez.getPassword()));
+		//usuarioNuevo.setPassword(passwordEncoder.encode(juez.getPassword()));
+		usuarioNuevo.setPassword(juez.getPassword());
 		usuarioNuevo.setTipousuario(TipoUsuario.JUEZ);
 		
 		Usuario usuarioGuardado = repoUsuario.save(usuarioNuevo);

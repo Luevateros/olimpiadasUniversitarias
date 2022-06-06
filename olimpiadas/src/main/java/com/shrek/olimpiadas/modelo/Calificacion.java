@@ -11,11 +11,12 @@ import javax.persistence.*;
 	    name = "traeCalificaciones",
 	    query =	"SELECT "
 	    		+ "c.nombre AS nombre, c.apellidop AS apellidop, c.apellidom AS apellidom, "
-	    		+ "c.sexo AS sexo, c.escuela AS escuela, k.calificacion AS calificacion "
+	    		+ "c.sexo AS sexo, c.escuela AS escuela, AVG(k.calificacion) AS calificacion "
 				+ "FROM Competidor c JOIN Calificacion k "
 				+ "ON c.idcompetidor = k.idcompetidor "
 				+ "WHERE k.iddisciplina = :iddisciplina AND c.sexo = :sexo "
-				+ "ORDER BY k.calificacion DESC",
+                + "GROUP BY c.idcompetidor "
+				+ "ORDER BY AVG(k.calificacion) DESC",
 	    resultSetMapping = "calificacion_competidor_dto"
 	)
 	@SqlResultSetMapping(

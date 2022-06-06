@@ -51,7 +51,8 @@ public class SvcEntrenadorImpl implements SvcEntrenador {
 
         usuarioNuevo = new Usuario();
         usuarioNuevo.setCorreo(entrenador.getCorreo());
-        usuarioNuevo.setPassword(passwordEncoder.encode(entrenador.getPassword()));
+        //usuarioNuevo.setPassword(passwordEncoder.encode(entrenador.getPassword()));
+        usuarioNuevo.setPassword(entrenador.getPassword());
         usuarioNuevo.setTipousuario(TipoUsuario.ENTRENADOR);
 
         Usuario usuarioGuardado = repoUsuario.save(usuarioNuevo);
