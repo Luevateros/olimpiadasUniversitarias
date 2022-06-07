@@ -16,6 +16,22 @@ public class CalificacionCompetidorDto {
     private String escuela;
     private Float calificacion;
 
+    public CalificacionCompetidorDto(
+    		String nombre,
+    		String apellidop,
+    		String apellidom,
+    		Integer sexo,
+    		String escuela,
+    		Float calificacion) {
+    	super();
+    	this.nombre = nombre;
+    	this.apellidop = apellidop;
+    	this.apellidom = apellidom;
+    	this.sexo = sexo;
+    	this.escuela = escuela;
+    	this.calificacion = calificacion;
+    }
+    
 	public String getNombre() {
         return nombre;
     }

@@ -12,6 +12,6 @@ public interface SvcCompetidor {
 	List<Disciplina> mostrarDisciplina();
 	String agregarCompetidor(CompetidorDTO competidor, Integer identrenador);
 	String actualizarCompetidor(CompetidorDTO competidor);
-	void eliminarCompetidor(String idcompetidor);
+	String eliminarCompetidor(String idcompetidor);
 	CompetidorDTO getCompetidor(String id);
 }

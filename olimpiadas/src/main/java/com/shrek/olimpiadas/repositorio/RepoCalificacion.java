@@ -35,4 +35,10 @@ public interface RepoCalificacion extends JpaRepository<Calificacion, Integer>{
                         @Param("idjuez") Integer idjuez,
                         @Param("iddisciplina") Integer iddisciplina);
 	
+	@Query(value = "SELECT COUNT(idcompetidor) FROM Calificacion  WHERE idcompetidor = :idcompetidor", nativeQuery = true)
+	Integer calificacionesCompetidor(@Param("idcompetidor") String idcompetidor);
+	
+	@Query(value = "SELECT COUNT(idjuez) FROM Calificacion  WHERE idjuez = :idjuez", nativeQuery = true)
+	Integer calificacionesJuez(@Param("idjuez") Integer idjuez);
+	
 }

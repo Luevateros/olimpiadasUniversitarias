@@ -82,10 +82,13 @@ public class CtrlJuez {
 	@GetMapping("/juez/eliminar/{id}")
 	public String eliminarJuez(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes ra) {
 		JuezDTO juez = svc.getJuez(id);
-		if(juez == null)
+		if(juez == null) {
 			ra.addFlashAttribute("mensaje", "No se encontró al juez con id " + id);
-		svc.eliminarJuez(id);
-		ra.addFlashAttribute("mensaje", "El juez se eliminó con éxito.");
+			return "redirect:/jueces";
+		}
+		String respuesta = svc.eliminarJuez(id);
+		String mensaje = (respuesta == null) ? "El juez se eliminó con éxito." : respuesta;
+		ra.addFlashAttribute("mensaje", mensaje);
 		return "redirect:/jueces";
 	}
 	

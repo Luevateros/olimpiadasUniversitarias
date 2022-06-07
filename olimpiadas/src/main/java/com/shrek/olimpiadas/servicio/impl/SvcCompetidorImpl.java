@@ -11,6 +11,7 @@ import com.shrek.olimpiadas.modelo.Competidor;
 import com.shrek.olimpiadas.modelo.Disciplina;
 import com.shrek.olimpiadas.modelo.TipoUsuario;
 import com.shrek.olimpiadas.modelo.Usuario;
+import com.shrek.olimpiadas.repositorio.RepoCalificacion;
 import com.shrek.olimpiadas.repositorio.RepoCompetidor;
 import com.shrek.olimpiadas.repositorio.RepoDisciplina;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
@@ -27,6 +28,9 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 	
 	@Autowired
 	private RepoDisciplina repoDisciplina;
+	
+	@Autowired
+	private RepoCalificacion repoCalificacion;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -148,10 +152,17 @@ public class SvcCompetidorImpl implements SvcCompetidor{
 	}
 	
 	@Override
-	public void eliminarCompetidor(String idcompetidor){
-		Competidor competidor = (Competidor) repoCompetidor.findByIdcompetidor(idcompetidor);
-		repoCompetidor.eliminarCompetidor(idcompetidor);
-		repoUsuario.eliminarUsuario(competidor.getUsuario().getIdusuario());
+	public String eliminarCompetidor(String idcompetidor){
+		Integer calificaciones = repoCalificacion.calificacionesCompetidor(idcompetidor);
+		if (calificaciones == 0) {
+			Competidor competidor = (Competidor) repoCompetidor.findByIdcompetidor(idcompetidor);
+			repoCompetidor.eliminarAsesorar(idcompetidor);
+			repoCompetidor.eliminarCompetidor(idcompetidor);
+			repoUsuario.eliminarUsuario(competidor.getUsuario().getIdusuario());
+            return null;
+        }
+		return "No se puede eliminar al competidor con núm. de cuenta " + idcompetidor + ", porque ya fue calificado.";
+		
 	}
 	
 }

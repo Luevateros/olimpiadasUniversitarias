@@ -3,8 +3,6 @@ package com.shrek.olimpiadas.dto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.beans.Transient;
-
 @NoArgsConstructor
 @AllArgsConstructor
 public class DisciplinaDTO {

@@ -12,6 +12,7 @@ import com.shrek.olimpiadas.modelo.Disciplina;
 import com.shrek.olimpiadas.modelo.TipoUsuario;
 import com.shrek.olimpiadas.modelo.Usuario;
 import com.shrek.olimpiadas.repositorio.RepoJuez;
+import com.shrek.olimpiadas.repositorio.RepoCalificacion;
 import com.shrek.olimpiadas.repositorio.RepoDisciplina;
 import com.shrek.olimpiadas.repositorio.RepoUsuario;
 import com.shrek.olimpiadas.servicio.SvcJuez;
@@ -27,6 +28,9 @@ public class SvcJuezImpl implements SvcJuez {
 	
 	@Autowired
 	private RepoDisciplina repoDisciplina;
+	
+	@Autowired
+	private RepoCalificacion repoCalificacion;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -108,10 +112,16 @@ public class SvcJuezImpl implements SvcJuez {
 	}
 
 	@Override
-	public void eliminarJuez(Integer idjuez) {
-		Juez juez = (Juez) repoJuez.findByIdjuez(idjuez);
-		repoJuez.eliminarJuez(idjuez);
-		repoUsuario.eliminarUsuario(juez.getUsuario().getIdusuario());
+	public String eliminarJuez(Integer idjuez) {
+		Integer calificaciones = repoCalificacion.calificacionesJuez(idjuez);
+		if (calificaciones == 0) {
+			Juez juez = (Juez) repoJuez.findByIdjuez(idjuez);
+			repoJuez.eliminarJuez(idjuez);
+			repoUsuario.eliminarUsuario(juez.getUsuario().getIdusuario());
+            return null;
+        }
+		return "No se puede eliminar al juez, porque ya calificó competidores.";
+		
 	}
 
 	@Override

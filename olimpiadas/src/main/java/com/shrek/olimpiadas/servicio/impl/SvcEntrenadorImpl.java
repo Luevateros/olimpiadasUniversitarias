@@ -3,7 +3,6 @@ package com.shrek.olimpiadas.servicio.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.shrek.olimpiadas.dto.EntrenadorDTO;
@@ -25,8 +24,6 @@ public class SvcEntrenadorImpl implements SvcEntrenador {
     private RepoEntrenador repoEntrenador;
     @Autowired
     private RepoUsuario repoUsuario;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Entrenador> mostrarEntrenadores(){

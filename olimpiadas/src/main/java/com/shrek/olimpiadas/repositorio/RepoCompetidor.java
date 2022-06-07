@@ -28,6 +28,11 @@ public interface RepoCompetidor extends JpaRepository<Competidor, String>{
 				 + "VALUES (:idcompetidor, :identrenador)", nativeQuery = true)
 	void agregarAsesorar(@Param("idcompetidor") String idcompetidor, @Param("identrenador") Integer identrenador);
 	
+	@Modifying
+	@Transactional
+	@Query(value="DELETE FROM Asesorar WHERE idcompetidor = :idcompetidor", nativeQuery = true)
+    void eliminarAsesorar(@Param("idcompetidor") String idcompetidor);
+	
 	@Query(value = "SELECT * FROM Competidor WHERE idcompetidor = :idcompetidor", nativeQuery = true)
 	Competidor findByIdcompetidor(@Param("idcompetidor") String idcompetidor);
 
@@ -71,7 +76,6 @@ public interface RepoCompetidor extends JpaRepository<Competidor, String>{
 	@Transactional
 	@Query(value="DELETE FROM Competidor WHERE idcompetidor = :idcompetidor", nativeQuery = true)
     void eliminarCompetidor(@Param("idcompetidor") String idcompetidor);
-
 
 	@Query(value = "SELECT competidor.idcompetidor, nombre, apellidop, apellidom, sexo, nacimiento, escuela, idusuario, competidor.iddisciplina "
 					+ "FROM (SELECT * FROM competidor WHERE competidor.iddisciplina = "

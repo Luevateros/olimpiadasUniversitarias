@@ -41,7 +41,10 @@
             </div>
             
             <!-- Mensaje de éxito -->
-            <div th:if="${mensaje != null}" class="alert alert-success text-center">
+            <div th:if="${mensaje != null and #strings.contains(mensaje, &quot;No&quot;)}" class="alert alert-danger text-center">
+                [[${mensaje}]]
+            </div>
+            <div th:if="${mensaje != null and #strings.contains(mensaje, &quot;éxito&quot;)}" class="alert alert-success text-center">
                 [[${mensaje}]]
             </div>
 

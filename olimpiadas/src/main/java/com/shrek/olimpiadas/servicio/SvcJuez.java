@@ -11,6 +11,6 @@ public interface SvcJuez {
 	List<Disciplina> mostrarDisciplina();
 	String agregarJuez(JuezDTO juez);
 	String actualizarJuez(JuezDTO juez);
-	void eliminarJuez(Integer idjuez);
+	String eliminarJuez(Integer idjuez);
 	JuezDTO getJuez(Integer id);
 }

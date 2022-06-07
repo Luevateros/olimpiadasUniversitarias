@@ -155,8 +155,9 @@ public class CtrlCompetidor {
 			ra.addFlashAttribute("mensaje", "No se encontró al competidor con número de cuenta " + id);
 			return "redirect:/competidores";
 		}
-		svc.eliminarCompetidor(id);
-		ra.addFlashAttribute("mensaje", "El competidor con número de cuenta " + id + " se eliminó con éxito.");
+		String respuesta = svc.eliminarCompetidor(id);
+		String mensaje = (respuesta == null) ? "El competidor con número de cuenta " + id + " se eliminó con éxito." : respuesta;
+		ra.addFlashAttribute("mensaje", mensaje);
 		return "redirect:/competidores";
 	}
 	
