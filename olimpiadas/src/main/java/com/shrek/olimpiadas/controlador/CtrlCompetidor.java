@@ -41,6 +41,7 @@ public class CtrlCompetidor {
 			model.addAttribute("competidores", svc.mostrarTodosCompetidores());
 		} else {
 			Entrenador entrenador = svcEntrenador.getEntrenador(usuario.getIdusuario());
+			model.addAttribute("entrenador", entrenador);
 			model.addAttribute("competidores", svc.mostrarCompetidores(entrenador.getIdentrenador()));
 		}
         return "crud_competidor";

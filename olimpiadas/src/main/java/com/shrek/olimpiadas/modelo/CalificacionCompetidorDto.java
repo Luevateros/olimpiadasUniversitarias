@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CalificacionCompetidorDto {
 
     private String nombre;

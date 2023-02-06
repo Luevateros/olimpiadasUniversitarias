@@ -14,7 +14,7 @@ public interface RepoCalificacionEntrenadorDto extends JpaRepository<Calificacio
     @Query(value = "SELECT calificacion.idcalificacion,\n" +
             "            competidor.nombre as nombre,\n" +
             "            competidor.apellidop, competidor.apellidom,\n" +
-            "            juez.nombre as juez, calificacion, disciplina.nombre as disciplina\n" +
+            "            juez.nombre as juez, juez.apellidop as juezp, juez.apellidom as juezm, calificacion, disciplina.nombre as disciplina\n" +
             "            FROM calificacion INNER JOIN asesorar\n" +
             "            ON calificacion.idcompetidor = asesorar.idcompetidor\n" +
             "            INNER JOIN competidor\n" +

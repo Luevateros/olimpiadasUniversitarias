@@ -38,17 +38,24 @@
                 </div>
             </div>
             
-            <div sec:authorize="hasAuthority('ENTRENADOR')" class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
-                <h2>Administrar mis competidores</h2>
-                <div id="btn-crud">
-                    <a class="btn btn-info" 
-                        th:href="@{/entrenador_calificaciones}">
-                        Calificaciones</a>
-                    <a class="btn btn-warning"
-                        th:href="@{/competidor/nuevo}">
-                        Nuevo competidor</a>
+            <div sec:authorize="hasAuthority('ENTRENADOR')">
+                <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
+                    <h2 th:text="'Entrenador:  ' + ${entrenador.nombre} + ' ' + ${entrenador.apellidop} + ' ' + ${entrenador.apellidom}"></h2>
+                </div>
+                <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
+                
+                    <h2>Administrar mis competidores</h2>
+                    <div id="btn-crud">
+                        <a class="btn btn-info" 
+                            th:href="@{/entrenador_calificaciones}">
+                            Calificaciones</a>
+                        <a class="btn btn-warning"
+                            th:href="@{/competidor/nuevo}">
+                            Nuevo competidor</a>
+                    </div>
                 </div>
             </div>
+            
             
             <!-- Mensaje de éxito -->
             <div th:if="${mensaje != null and #strings.contains(mensaje, &quot;No&quot;)}" class="alert alert-danger text-center">

@@ -48,6 +48,7 @@ public class CtrlCalificaciones {
             if (usuario != null) {
                 Entrenador entrenador = repoEntrenador.findByIdusuario(usuario.getIdusuario());
                 if (entrenador != null) {
+                		model.addAttribute("entrenador", entrenador);
                     model.addAttribute("calificaciones", svcCalificacion.traeCalificacionesEntrenador(entrenador.getIdentrenador()));
                     return "calificaciones_entrenador";
                 }
@@ -68,6 +69,7 @@ public class CtrlCalificaciones {
         model.addAttribute("nombre", competidor.getNombre());
         model.addAttribute("apellidop", competidor.getApellidop());
         model.addAttribute("apellidom", competidor.getApellidom());
+        model.addAttribute("disciplina", competidor.getDisciplina());
         model.addAttribute("comentarios", svcCalificacion.competidorCalificacion(competidor.getIdcompetidor()));
         return "menu_competidor";
     }
@@ -95,7 +97,9 @@ public class CtrlCalificaciones {
                 if(usuario != null){
                     Juez juez=  repoJuez.findByIdusuario(usuario.getIdusuario());
                     if(juez != null){
-                        model.addAttribute("competidores", svcCalificacion.traeCompetidores(juez.getIdjuez()));
+                    		model.addAttribute("disciplina", juez.getDisciplina());
+                    		model.addAttribute("juez", juez);
+                    		model.addAttribute("competidores", svcCalificacion.traeCompetidores(juez.getIdjuez()));
                         return "menu_juez";
                     }
                 }

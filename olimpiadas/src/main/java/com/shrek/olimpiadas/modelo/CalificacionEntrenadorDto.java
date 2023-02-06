@@ -24,9 +24,15 @@ public class CalificacionEntrenadorDto {
 
     @Column(name = "juez")
     private String juez;
+    
+    @Column(name = "juezp")
+    private String juezp;
+    
+    @Column(name = "juezm")
+    private String juezm;
 
     @Column(name = "calificacion")
-    private Integer calificacion;
+    private Double calificacion;
 
     @Column(name = "disciplina")
     private String disciplina;
@@ -65,18 +71,18 @@ public class CalificacionEntrenadorDto {
     }
 
     public String getJuez() {
-        return juez;
+        return juez + " " + juezp + " " + juezm;
     }
 
     public void setJuez(String juez) {
         this.juez = juez;
     }
 
-    public Integer getCalificacion() {
+    public Double getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(Integer calificacion) {
+    public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
 

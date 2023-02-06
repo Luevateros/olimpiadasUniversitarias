@@ -21,7 +21,7 @@
     <!-- Lista de comentarios -->
     <div class="container-fluid">
         <div class="titulo-crud row mt-4 mb-2 ml-1 mr-1">
-            <h2 th:text="'Mis calificaciones: ' + ${nombre} + ' ' + ${apellidop} + ' ' + ${apellidom}"></h2>
+            <h2 th:text="'Mis calificaciones: ' + ${nombre} + ' ' + ${apellidop} + ' ' + ${apellidom} + ' (' + ${disciplina} + ')'"></h2>
             <div id="btn-crud">
                 <a class="btn btn-warning" 
                     th:href="@{/competidor/posiciones}">
