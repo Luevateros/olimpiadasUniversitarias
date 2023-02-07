@@ -25,10 +25,6 @@ The system offers different services for participants of a fictitious University
 
 ![Admin services](/imgs/olimpiadas-admin.gif)
 
-<!-- | <img src="/img/olimpiadas-admin.gif" width="50%"> |
-| :-----------------------------------------------: |
-|                 _Admin services_                  | -->
-
 - **Trainer**:
   - Register herself in the system.
   - Add/update/remove her competitors.
@@ -36,29 +32,17 @@ The system offers different services for participants of a fictitious University
 
 ![Trainer services](/imgs/olimpiadas-entrenador.gif)
 
-<!-- | <img src="/img/olimpiadas-entrenador.gif" width="50%"> |
-| :----------------------------------------------------: |
-|                   _Trainer services_                   | -->
-
 - **Competitor**:
   - Review the score that each judge assigned her.
   - Review her position in a competition and her average score.
 
 ![Competitor services](/imgs/olimpiadas-competidor.gif)
 
-<!-- | <img src="/img/olimpiadas-competidor.gif" width="50%"> |
-| :----------------------------------------------------: |
-|               **Competitor** services\*                | -->
-
 - **Judge**:
   - Review the score that each judge assigned her.
   - Review her position in a competition and her average score.
 
 ![Judge services](imgs/olimpiadas-juez.gif)
-
-<!-- | <img src="/img/olimpiadas-juez.gif" width="50%"> |
-| :----------------------------------------------: |
-|               **Judge** services\*               | -->
 
 **[Back to index](#index)**
 
