@@ -23,7 +23,7 @@ The system offers different services for participants of a fictitious University
   - Review the competitors' information.
   - Review the trainers' information.
 
-![Admin services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-admin.gif)
+![Admin services](/imgs/olimpiadas-admin.gif)
 
 <!-- | <img src="/img/olimpiadas-admin.gif" width="50%"> |
 | :-----------------------------------------------: |
@@ -34,7 +34,7 @@ The system offers different services for participants of a fictitious University
   - Add/update/remove her competitors.
   - Review the score for each of her competitors.
 
-![Trainer services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-entrenador.gif)
+![Trainer services](/imgs/olimpiadas-entrenador.gif)
 
 <!-- | <img src="/img/olimpiadas-entrenador.gif" width="50%"> |
 | :----------------------------------------------------: |
@@ -44,7 +44,7 @@ The system offers different services for participants of a fictitious University
   - Review the score that each judge assigned her.
   - Review her position in a competition and her average score.
 
-![Competitor services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-competidor.gif)
+![Competitor services](/imgs/olimpiadas-competidor.gif)
 
 <!-- | <img src="/img/olimpiadas-competidor.gif" width="50%"> |
 | :----------------------------------------------------: |
@@ -54,7 +54,7 @@ The system offers different services for participants of a fictitious University
   - Review the score that each judge assigned her.
   - Review her position in a competition and her average score.
 
-![Judge services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-juez.gif)
+![Judge services](imgs/olimpiadas-juez.gif)
 
 <!-- | <img src="/img/olimpiadas-juez.gif" width="50%"> |
 | :----------------------------------------------: |
@@ -97,7 +97,7 @@ The team's name is S.H.R.E.K. because each letter corresponds to the first lette
 
 - We included the database's schema and some entries; you can find those [here](https://github.com/Luevateros/olimpiadasUniversitarias/tree/master/olimpiadas/src/main/resources/db). First import the file [tabla.sql](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/olimpiadas/src/main/resources/db/tablas.sql) to your DBMS, then the file [DML(proyecto).sql](<https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/olimpiadas/src/main/resources/db/DML(proyecto).sql>).
 
-- Include your `username` and `password` in the file [application.properties](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/olimpiadas/src/main/resources/application.properties).
+- Include your DB `username` and `password` in the file [application.properties](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/olimpiadas/src/main/resources/application.properties).
 
 - Run [OlimpiadasApplication.java](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/olimpiadas/src/main/java/com/shrek/olimpiadas/OlimpiadasApplication.java) from your IDE.
 
