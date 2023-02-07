@@ -26,7 +26,6 @@ public class CtrDisciplina {
 
     @GetMapping("/disciplinas")
     public String mostrarFormNueva(Model model){
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         model.addAttribute("disciplinas", svc.mostrarDisciplinas());
         return "ver_disciplinas";
     }

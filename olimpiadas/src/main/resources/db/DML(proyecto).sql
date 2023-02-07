@@ -1,24 +1,24 @@
 USE proyecto;
 
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Atletismo', 'Maddy Beret', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Atletismo', 'Maddy Beret', 'Atletismo', 
 'Contiene un conjunto de disciplinas agrupadas en carreras, saltos, lanzamientos, pruebas combinadas y marcha.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Boxeo', 'Griffin Olva', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Boxeo', 'Griffin Olva', 'Boxeo', 
 'Dos personas se enfrentan a golpes de puño con sus manos cubiertas por guantes y de acuerdo a determinadas reglas.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Triatlón', 'Mary Anselm', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Triatlón', 'Mary Anselm', 'Triatlon', 
 'Deporte individual, combinado y de resistencia que consta de tres segmentos: natación, ciclismo y carrera a pie.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Natación', 'Aymer Denna', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Natación', 'Aymer Denna', 'Natacion', 
 'Práctica recreativa o deportiva del movimiento y desplazamiento sobre el agua, empleando sólo los brazos y las piernas.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Gimnasia', 'Charmaine Ansel', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Gimnasia', 'Charmaine Ansel', 'Gimnasia', 
 ' Requiere una combinación de fuerza, balance, agilidad, y coordinación del cuerpo en el salón donde se practica.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Halterofilia', 'Gizela Dorrie', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Halterofilia', 'Gizela Dorrie', 'Halterofilia', 
 'Requiere de un gran entrenamiento de los músculos del cuerpo para adquirir la fuerza necesaria para los levantamientos.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Esgrima', 'Wilbert Luisa', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Esgrima', 'Wilbert Luisa', 'Esgrima', 
 'Deporte de combate, donde se enfrentan dos competidores, que deben intentar tocarse con un arma blanca.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Baloncesto', 'Karlik Chrystal', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Baloncesto', 'Karlik Chrystal', 'Baloncesto', 
 'Deporte de equipo en el que dos conjuntos de cinco jugadores cada uno, intentan anotar puntos.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Judo', 'Susanetta Smith', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Judo', 'Susanetta Smith', 'Judo', 
 'Deporte de combate de origen japonés, puede traducirse como camino de la flexibilidad.');
-insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Taekwondo', 'Cosette Charo', '', 
+insert into Disciplina (nombre, responsable, imagen, descripcion) values ('Taekwondo', 'Cosette Charo', 'Taekwondo', 
 'Deporte o arte utiliza diferentes técnicas de patada.');
 
 insert into Usuario (correo, password, tipousuario) values ('admin@correo.com', '123456789', 'ADMIN');
