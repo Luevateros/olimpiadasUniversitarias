@@ -23,34 +23,42 @@ The system offers different services for participants of a fictitious University
   - Review the competitors' information.
   - Review the trainers' information.
 
-| <img src="/img/olimpiadas-admin.gif" width="50%"> |
+![Admin services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-admin.gif)
+
+<!-- | <img src="/img/olimpiadas-admin.gif" width="50%"> |
 | :-----------------------------------------------: |
-|                 _Admin services_                  |
+|                 _Admin services_                  | -->
 
 - **Trainer**:
   - Register herself in the system.
   - Add/update/remove her competitors.
   - Review the score for each of her competitors.
 
-| <img src="/img/olimpiadas-entrenador.gif" width="50%"> |
+![Trainer services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-entrenador.gif)
+
+<!-- | <img src="/img/olimpiadas-entrenador.gif" width="50%"> |
 | :----------------------------------------------------: |
-|                   _Trainer services_                   |
+|                   _Trainer services_                   | -->
 
 - **Competitor**:
   - Review the score that each judge assigned her.
   - Review her position in a competition and her average score.
 
-| <img src="/img/olimpiadas-competidor.gif" width="50%"> |
+![Competitor services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-competidor.gif)
+
+<!-- | <img src="/img/olimpiadas-competidor.gif" width="50%"> |
 | :----------------------------------------------------: |
-|               **Competitor** services\*                |
+|               **Competitor** services\*                | -->
 
 - **Judge**:
   - Review the score that each judge assigned her.
   - Review her position in a competition and her average score.
 
-| <img src="/img/olimpiadas-juez.gif" width="50%"> |
+![Judge services](https://github.com/Luevateros/olimpiadasUniversitarias/blob/master/imgs/olimpiadas-juez.gif)
+
+<!-- | <img src="/img/olimpiadas-juez.gif" width="50%"> |
 | :----------------------------------------------: |
-|               **Judge** services\*               |
+|               **Judge** services\*               | -->
 
 **[Back to index](#index)**
 
